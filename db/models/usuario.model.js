@@ -21,6 +21,11 @@ const UsuarioSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
+
+    token: {
+        allowNull: true,
+        type: DataTypes.STRING
+    },
   
 }
 class Usuario extends Model {

@@ -6,9 +6,9 @@ const { Order, OrderSchema } = require('./order.model');
 const { OrderProduct, OrderProductSchema } = require('./order-product.model');
 const { Aplicacion, AplicacionSchema } = require('./aplicacion.model');
 const { Permiso, PermisoSchema } = require('./permiso.model');
-const { PermisoRol, PermisoRolSchema } = require('./permiso-rol.model');
+const { PermisoRol, PermisoRolSchema } = require('./permisoRol.model');
 const { Rol, RolSchema } = require('./rol.model');
-const { UsuarRolUsuario, RolUsuarioSchema } = require('./rol-usuario.model');
+const { UsuarRolUsuario, RolUsuarioSchema } = require('./rolUsuario.model');
 const { Usuario, UsuarioSchema } = require('./usuario.model');
 
 function setupModels(sequelize) {

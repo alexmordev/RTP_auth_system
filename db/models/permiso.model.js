@@ -10,7 +10,7 @@ const PermisoSchema = {
         type: DataTypes.INTEGER
     },
 
-    name: {
+    nombre: {
         allowNull: false,
         type: DataTypes.STRING
     },

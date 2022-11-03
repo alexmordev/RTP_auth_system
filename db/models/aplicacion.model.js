@@ -11,7 +11,7 @@ const AplicacionSchema = {
         type: DataTypes.INTEGER
     },
 
-    name: {
+    nombre: {
         allowNull: false,
         type: DataTypes.STRING
     },

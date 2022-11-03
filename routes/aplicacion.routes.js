@@ -1,28 +1,28 @@
 const express = require('express');
 
-const CategoryService = require('./../services/category.service');
-const validatorHandler = require('./../middlewares/validator.handler');
-const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('./../schemas/category.schema');
+const CategoryService = require('../services/aplicacion.service');
+const validatorHandler = require('../middlewares/validator.handler');
+const { createAplicacionSchema, updateAplicacionSchema, getAplicacionSchema } = require('../schemas/aplicacion.schema');
 
 const router = express.Router();
 const service = new CategoryService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const categories = await service.find();
-    res.json(categories);
+    const aplicacion = await service.find();
+    res.json(aplicacion);
   } catch (error) {
     next(error);
   }
 });
 
 router.get('/:id',
-  validatorHandler(getCategorySchema, 'params'),
+  validatorHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const category = await service.findOne(id);
-      res.json(category);
+      const aplicaion = await service.findOne(id);
+      res.json(aplicaion);
     } catch (error) {
       next(error);
     }
@@ -30,12 +30,12 @@ router.get('/:id',
 );
 
 router.post('/',
-  validatorHandler(createCategorySchema, 'body'),
+  validatorHandler(createAplicacionSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newCategory = await service.create(body);
-      res.status(201).json(newCategory);
+      const newAplicacion = await service.create(body);
+      res.status(201).json(newAplicacion);
     } catch (error) {
       next(error);
     }
@@ -43,14 +43,14 @@ router.post('/',
 );
 
 router.patch('/:id',
-  validatorHandler(getCategorySchema, 'params'),
-  validatorHandler(updateCategorySchema, 'body'),
+  validatorHandler(getAplicacionSchema, 'params'),
+  validatorHandler(updateAplicacionSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       const body = req.body;
-      const category = await service.update(id, body);
-      res.json(category);
+      const aplicacion = await service.update(id, body);
+      res.json(aplicacion);
     } catch (error) {
       next(error);
     }
@@ -58,7 +58,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
-  validatorHandler(getCategorySchema, 'params'),
+  validatorHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
