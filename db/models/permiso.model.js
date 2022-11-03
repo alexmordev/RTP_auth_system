@@ -15,7 +15,7 @@ const PermisoSchema = {
         type: DataTypes.STRING
     },
 
-    descripcion: {
+    description: {
         allowNull: false,
         type: DataTypes.STRING
     },

@@ -1,21 +1,21 @@
 const Joi = require('joi');
 
-const id = Joi.number().integer();
-const nombre = Joi.string();
+const IdPermiso = Joi.number().integer();
+const name = Joi.string();
 const description = Joi.string().min(8);
 
 const createPermisoSchema = Joi.object({
-  nombre: nombre.required(),
+  name: name.required(),
   description: description.required()
 });
 
 const updatePermisoSchema = Joi.object({
-  nombre: nombre,
-  description: description,
+  name,
+  description,
 });
 
 const getPermisoSchema = Joi.object({
-  id: id.required(),
+  IdPermiso: IdPermiso.required(),
 });
 
 module.exports = { createPermisoSchema, updatePermisoSchema, getPermisoSchema }
