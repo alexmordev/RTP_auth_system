@@ -2,6 +2,7 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const APLICAION_TABLE = 'aplicacion'; //definir nombre tabla;
 const AplicacionSchema = {
+    
     IdAplicacion: {
         field: 'id_aplicacion',
         allowNull: false,
