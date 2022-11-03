@@ -1,5 +1,5 @@
 'use strict';
-const { APLICAION_TABLE, AplicacionSchema } = require('../models/Aplicacion.model');
+const { APLICAION_TABLE, AplicacionSchema } = require('../models/aplicacion.model');
 const { PERMISO_ROL_TABLE, PermisoRolSchema } = require('../models/permiso-rol.model');
 const { PERMISO_TABLE, PermisoSchema } = require('../models/permiso.model');
 const { ROL_USUARIO_TABLE, RolUsuarioSchema } = require('../models/rol-usuario.model');
