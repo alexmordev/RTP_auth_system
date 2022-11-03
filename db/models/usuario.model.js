@@ -23,7 +23,7 @@ const UsuarioSchema = {
     },
 
     token: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING
     },
   

@@ -1,16 +1,16 @@
 const Joi = require('joi');
 
 const IdPermiso = Joi.number().integer();
-const name = Joi.string();
+const nombre = Joi.string();
 const description = Joi.string().min(8);
 
 const createPermisoSchema = Joi.object({
-  name: name.required(),
+  nombre: nombre.required(),
   description: description.required()
 });
 
 const updatePermisoSchema = Joi.object({
-  name,
+  nombre,
   description,
 });
 

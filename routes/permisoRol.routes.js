@@ -2,7 +2,7 @@ const express = require('express');
 
 const CategoryService = require('../services/aplicacion.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const { createPermisoRolSchema, updatePermisoRolSchema, getPermisoRolSchema } = require('../schemas/permiso-rol.schema');
+const { createPermisoRolSchema, updatePermisoRolSchema, getPermisoRolSchema } = require('../schemas/permisoRol.schema');
 
 const router = express.Router();
 const permiso = new CategoryService();
