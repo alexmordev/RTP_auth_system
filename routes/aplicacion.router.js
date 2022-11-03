@@ -1,15 +1,15 @@
 const express = require('express');
 
-const CustomerService = require('../services/customers.service');
+const AplicacionService = require('../services/aplicacion.service');
 const validationHandler = require('../middlewares/validator.handler');
 const {
-  createCustomerSchema,
-  getCustomerSchema,
-  updateCustomerSchema,
-} = require('../schemas/customer.schema');
+  createAplicacionSchema,
+  getAplicacionSchema,
+  updateAplicacionSchema,
+} = require('../schemas/aplicacion.schema');
 
 const router = express.Router();
-const service = new CustomerService();
+const service = new AplicacionService();
 
 router.get('/',  async (req, res, next) => {
   try {
@@ -20,7 +20,7 @@ router.get('/',  async (req, res, next) => {
 });
 
 router.post('/',
-  validationHandler(createCustomerSchema, 'body'),
+  validationHandler(createAplicacionSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -32,8 +32,8 @@ router.post('/',
 );
 
 router.patch('/:id',
-  validationHandler(getCustomerSchema, 'params'),
-  validationHandler(updateCustomerSchema, 'body'),
+  validationHandler(getAplicacionSchema, 'params'),
+  validationHandler(updateAplicacionSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -46,7 +46,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
-  validationHandler(getCustomerSchema, 'params'),
+  validationHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
