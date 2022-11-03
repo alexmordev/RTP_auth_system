@@ -20,6 +20,11 @@ const AplicacionSchema = {
         allowNull: false,
         type: DataTypes.INTEGER
     },
+
+    path: {
+        allowNull: false,
+        type: DataTypes.STRING
+    },
   
 }
 class Aplicacion extends Model {
