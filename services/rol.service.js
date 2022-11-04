@@ -1,38 +1,35 @@
-// const boom = require('@hapi/boom');
+const boom = require('@hapi/boom');
 
-const { models }= require('./../libs/sequelize');
+const {models} = require('../libs/sequelize');
 
 class RolService {
+  constructor() {}
 
-  constructor(){
-  }
   async create(data) {
-    const newRol = await models.Rol.create(data);
+    const newRol = await models.Rol.create( data )
     return newRol;
   }
-
   async find() {
-    const roles = await models.Rol.findAll();
-    return roles;
+    const res = await models.Rol.findAll();
+    return res;
   }
-
   async findOne(id) {
-    const rol = await models.Rol.findByPk(id);
+    const rol  =  await models.Rol.findByPk(id);// buscar con id
+    if(!rol){
+      boom.notFound('Registro no encontrado');
+    }
     return rol;
   }
-
   async update(id, changes) {
     const rol = await this.findOne(id);
-    const rta = await rol.update(changes);
-    return rta;
+    const res = await rol.update(changes);
+    return res;
   }
-
   async delete(id) {
     const rol = await this.findOne(id);
-    await rol.destroy();
-    return { id };
+    await rol.destroy()
+    return {id};
   }
-
 }
 
 module.exports = RolService;

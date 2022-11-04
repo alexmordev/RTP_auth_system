@@ -1,10 +1,13 @@
 require('dotenv').config();
-
 const config = {
-  env: process.env.NODE_ENV || 'dev',
-  isProd: process.env.NODE_ENV === 'production',
-  port: process.env.PORT || 3000,
-  dbUrl: process.env.DATABASE_URL,
-}
 
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host:     process.env.DB_HOST,
+    dialect:  process.env.DB_DIALECT,
+    dbURL:    process.env.DATABASE_URL,
+    port:     process.env.PORT
+    
+}
 module.exports = { config };

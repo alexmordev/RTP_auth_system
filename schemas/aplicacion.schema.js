@@ -1,21 +1,24 @@
 const Joi = require('joi');
 
-const id = Joi.number().integer();
+const IdAplicacion = Joi.number().integer();
 const nombre = Joi.string();
-const estatus = Joi.boolean();
+const estatus = Joi.number().integer();
+const path = Joi.string();
 
 const createAplicacionSchema = Joi.object({
   nombre: nombre.required(),
-  estatus: estatus.required()
+  estatus: estatus.required(),
+  path: path.required(),
 });
 
 const updateAplicacionSchema = Joi.object({
-  nombre: nombre,
-  estatus: estatus,
+  nombre,
+  estatus,
+  path
 });
 
 const getAplicacionSchema = Joi.object({
-  id: id.required(),
+  IdAplicacion: IdAplicacion.required(),
 });
 
 module.exports = { createAplicacionSchema, updateAplicacionSchema, getAplicacionSchema }

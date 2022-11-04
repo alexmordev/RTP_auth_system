@@ -1,21 +1,21 @@
 const Joi = require('joi');
 
-const id = Joi.number().integer();
-const idRol = Joi.number().integer();
-const idUsuario = Joi.number().integer();
+const IdRolUsuario = Joi.number().integer();
+const IdRol = Joi.number().integer();
+const IdUsuario = Joi.number().integer();
 
 const createRolUsuarioSchema = Joi.object({
-  idRol: idRol.required(),
-  idUsuario: idUsuario.required()
+  IdRol: IdRol.required(),
+  IdUsuario: IdUsuario.required()
 });
 
 const updateRolUsuarioSchema = Joi.object({
-  idRol: idRol,
-  idUsuario: idUsuario,
+  IdRol,
+  IdUsuario,
 });
 
 const getRolUsuarioSchema = Joi.object({
-  id: id.required(),
+  IdRolUsuario: IdRolUsuario.required(),
 });
 
 module.exports = { createRolUsuarioSchema, updateRolUsuarioSchema, getRolUsuarioSchema }

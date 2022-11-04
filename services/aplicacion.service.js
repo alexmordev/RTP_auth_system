@@ -1,37 +1,35 @@
-// const boom = require('@hapi/boom');
+const boom = require('@hapi/boom');
 
-const { models }= require('./../libs/sequelize');
+const {models} = require('../libs/sequelize');
 
-class AplicacionService {
+class RolService {
+  constructor() {}
 
-  constructor(){
-  }
   async create(data) {
-    const newAplicacion = await models.Aplicacion.create(data);
-    return newAplicacion;
+    const newAplication = await models.Aplicacion.create( data )
+    return newAplication;
   }
-
   async find() {
-    const aplicaciones = await models.Aplicacion.findAll();
-    return aplicaciones;
+    const res = await models.Aplicacion.findAll();
+    return res;
   }
-
   async findOne(id) {
-    const aplicacion = await models.Aplicacion.findByPk(id);
-    return aplicacion;
+    const aplication  =  await models.Aplicacion.findByPk(id);// buscar con id
+    if(!aplication){
+      boom.notFound('Registro no encontrado');
+    }
+    return aplication;
   }
-
   async update(id, changes) {
-    const aplicacion = await this.findOne(id);
-    const rta = await aplicacion.update(changes);
-    return rta;
+    const aplication = await this.findOne(id);
+    const res = await aplication.update(changes);
+    return res;
   }
-
   async delete(id) {
-    const aplicacion = await this.findOne(id);
-    await aplicacion.destroy();
-    return { id };
+    const aplication = await this.findOne(id);
+    await aplication.destroy()
+    return {id};
   }
 }
 
-module.exports = AplicacionService;
+module.exports = RolService;
