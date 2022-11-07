@@ -16,7 +16,7 @@ if (config.isProd) {
   }
 }
 
-const sequelize = new Sequelize(config.dbUrl, options);
+const sequelize = new Sequelize(config.dbURL, options);
 
 setupModels(sequelize);
 

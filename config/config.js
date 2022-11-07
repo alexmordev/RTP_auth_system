@@ -8,6 +8,6 @@ const config = {
     dialect:  process.env.DB_DIALECT,
     dbURL:    process.env.DATABASE_URL,
     port:     process.env.PORT
-    
+
 }
 module.exports = { config };
