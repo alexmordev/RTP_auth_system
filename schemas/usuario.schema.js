@@ -1,23 +1,24 @@
 const Joi = require('joi');
 
-const IdUsuario = Joi.number().integer();
-const nombreUsuario = Joi.string();
+const idUsuario = Joi.number().integer();
+const email = Joi.string().email();
 const contraseña = Joi.string();
 const token = Joi.string();
 
 const createAplicacionSchema = Joi.object({
-    nombreUsuario: nombreUsuario.required(),
+    idUsuario,
+    email: email.required(),
     contraseña:contraseña.required(),
 });
 
 const updateAplicacionSchema = Joi.object({
-    nombreUsuario,
+    email,
     contraseña,
     token,
 });
 
 const getAplicacionSchema = Joi.object({
-    IdUsuario: IdUsuario.required(),
+    idUsuario
 });
 
 module.exports = {

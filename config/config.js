@@ -18,4 +18,8 @@ const SGA = {
   port: process.env.SGA_PORT
 }
 
-module.exports = { AUTH, SGA };
+const JWT = {
+    secret : process.env.JWT_SECRET
+}
+
+module.exports = { AUTH, SGA, JWT };

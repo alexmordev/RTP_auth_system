@@ -5,6 +5,7 @@ const permisoRouter = require('./permiso.routes');
 const rolUsuarioRouter = require('./rolUsuario.routes');
 const rolRouter = require('./rol.routes');
 const usuarioRouter = require('./usuario.routes');
+const authService = require('./auth.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -15,6 +16,7 @@ function routerApi(app) {
   router.use('/rolUsuario', rolUsuarioRouter);
   router.use('/rol', rolRouter);
   router.use('/usuario', usuarioRouter);
+  router.use('/service', authService);
 }
 
 module.exports = routerApi;

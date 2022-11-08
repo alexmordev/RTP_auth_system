@@ -9,14 +9,15 @@ const UsuarioSchema = {
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-    nombreUsuario: {
-        field: 'nombre_usuario',
+    email: {
+        field: 'email',
         allowNull: false,
         type: DataTypes.STRING
     },
     contraseña: {
         field: 'contraseña',
         allowNull: false,
+        unique: true,
         type: DataTypes.STRING
     },
     token: {

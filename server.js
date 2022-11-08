@@ -20,6 +20,7 @@ class Server {
     this.app.use(express.json());
     this.app.use(morgan('dev'));
     this.app.use(cors());
+    require('./utils');
     this.app.use(express.urlencoded({ extended: false }));
 
   }
