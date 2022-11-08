@@ -1,18 +1,19 @@
 const { Aplicacion, AplicacionSchema } = require('./aplicacion.model');
 const { Permiso, PermisoSchema } = require('./permiso.model');
-const { PermisoRol, PermisoRolSchema } = require('./permisoRol.model');
 const { Rol, RolSchema } = require('./rol.model');
 const { UsuarRolUsuario, RolUsuarioSchema } = require('./rolUsuario.model');
 const { Usuario, UsuarioSchema } = require('./usuario.model');
+const { Trabajador, TrabajadorSGASchema } = require('./trabajador.model');
+function setupSGAModels(sequelize) {
+  Trabajador.init( TrabajadorSGASchema, Trabajador.config(sequelize) );
+}
 
-function setupModels(sequelize) {
+function setupAUTHModels(sequelize) {
   Aplicacion.init(AplicacionSchema, Aplicacion.config(sequelize));
   Permiso.init(PermisoSchema, Permiso.config(sequelize));
-  PermisoRol.init(PermisoRolSchema, PermisoRol.config(sequelize));
   Rol.init(RolSchema, Rol.config(sequelize));
   UsuarRolUsuario.init(RolUsuarioSchema, UsuarRolUsuario.config(sequelize));
   Usuario.init(UsuarioSchema, Usuario.config(sequelize));
-
 
   // User.associate(sequelize.models);
   // Aplicacion.associate(sequelize.models);
@@ -23,4 +24,5 @@ function setupModels(sequelize) {
   // Usuario.associate(sequelize.models);
 }
 
-module.exports = setupModels;
+
+module.exports = {setupSGAModels,setupAUTHModels} ;

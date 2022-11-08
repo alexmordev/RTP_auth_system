@@ -2,34 +2,41 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const USUARIO_TABLE = 'usuario'; //definir nombre tabla;
 const UsuarioSchema = {
-    IdUsuario: {
+    idUsuario: {
         field: 'id_usuario',
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-
-    NombreUsuario: {
+    nombreUsuario: {
         field: 'nombre_usuario',
         allowNull: false,
         type: DataTypes.STRING
     },
-
-    constraseña: {
-        field: 'constraseña',
+    contraseña: {
+        field: 'contraseña',
         allowNull: false,
         type: DataTypes.STRING
     },
-
     token: {
         allowNull: true,
         type: DataTypes.STRING
     },
-  
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'create_at',
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+    },
 }
 class Usuario extends Model {
-    static associate(models) {
+    static associate() {
       //ASSOCIATIONS
     }
     static config(sequelize) {
@@ -37,8 +44,7 @@ class Usuario extends Model {
             sequelize,
             tableName: USUARIO_TABLE,
             modelName: 'Usuario',
-            createdAt: false,
-            timestamps: false
+            timestamps: true
         }
     }
 }

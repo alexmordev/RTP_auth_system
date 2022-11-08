@@ -1,15 +1,24 @@
 const express = require('express');
 
-const CategoryService = require('../services/aplicacion.service');
+const UsuarioService = require('../services/usuario.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const { createAplicacionSchema, updateAplicacionSchema, getAplicacionSchema } = require('../schemas/usuario.schema');
 
 const router = express.Router();
-const service = new CategoryService();
+const service = new UsuarioService();
 
 router.get('/', async (req, res, next) => {
   try {
     const rol = await service.find();
+    res.json(rol);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/trabajador', async (req, res, next) => {
+  try {
+    const rol = await service.findTrabajadores();
     res.json(rol);
   } catch (error) {
     next(error);

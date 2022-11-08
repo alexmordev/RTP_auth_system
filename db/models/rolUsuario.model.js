@@ -9,22 +9,30 @@ const RolUsuarioSchema = {
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-
     IdRol: {
         field: 'id_rol',
         allowNull: false,
         type: DataTypes.INTEGER
     },
-
     IdUsuario: {
         field: 'id_usuario',
         allowNull: false,
         type: DataTypes.INTEGER
     },
-  
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'create_at',
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+    },
 }
 class UsuarRolUsuario extends Model {
-    static associate(models) {
+    static associate() {
       //ASSOCIATIONS
     }
     static config(sequelize) {
@@ -32,9 +40,8 @@ class UsuarRolUsuario extends Model {
             sequelize,
             tableName: ROL_USUARIO_TABLE,
             modelName: 'UsuarRolUsuario',
-            createdAt: false,
-            timestamps: false
+            timestamps: true
         }
     }
 }
-module.exports = { ROL_USUARIO_TABLE, RolUsuarioSchema, UsuarRolUsuario }; 
+module.exports = { ROL_USUARIO_TABLE, RolUsuarioSchema, UsuarRolUsuario };
