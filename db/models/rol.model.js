@@ -9,21 +9,29 @@ const RolSchema = {
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-
     nombre: {
         allowNull: false,
         type: DataTypes.STRING
     },
-
     IdAplicacion: {
         field: 'id_aplicacion',
         allowNull: false,
         type: DataTypes.INTEGER
     },
-  
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'create_at',
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+    },
 }
 class Rol extends Model {
-    static associate(models) {
+    static associate() {
       //ASSOCIATIONS
     }
     static config(sequelize) {
@@ -31,8 +39,7 @@ class Rol extends Model {
             sequelize,
             tableName: ROL_TABLE,
             modelName: 'Rol',
-            createdAt: false,
-            timestamps: false
+            timestamps: true
         }
     }
 }

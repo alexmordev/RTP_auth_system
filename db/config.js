@@ -1,16 +1,17 @@
-const { config } = require('../config/config');
+const { AUTH } = require('../config/config');
 
-const USER = encodeURIComponent( config.username );
-const PASSWORD = encodeURIComponent( config.password );
-const URL = `postgres://${USER}:${PASSWORD}@${config.host}:${config.port}/${config.database}`;
+const USER = encodeURIComponent( AUTH.user );
+const PASSWORD = encodeURIComponent( AUTH.password );
+const URL = `postgres://${USER}:${PASSWORD}@${AUTH.host}:${AUTH.port}/${AUTH.db}`;
 
 module.exports = {
-    development:{
-        url:URL,
-        dialect: 'postgres',
-    },
-    production:{
-        url:URL,
-        dialect: 'postgres',
-    }
+  production:{
+    url:URL,
+    dialect: 'postgres',
+  },
+  development:{
+      url:URL,
+      dialect: 'postgres',
+  },
+
 }

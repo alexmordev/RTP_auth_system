@@ -9,20 +9,28 @@ const PermisoSchema = {
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-
     nombre: {
         allowNull: false,
         type: DataTypes.STRING
     },
-
     descripcion: {
         allowNull: false,
         type: DataTypes.STRING
     },
-  
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'create_at',
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+    },
 }
 class Permiso extends Model {
-    static associate(models) {
+    static associate() {
       //ASSOCIATIONS
     }
     static config(sequelize) {
@@ -30,8 +38,7 @@ class Permiso extends Model {
             sequelize,
             tableName: PERMISO_TABLE,
             modelName: 'Permiso',
-            createdAt: false,
-            timestamps: false
+            timestamps: true
         }
     }
 }

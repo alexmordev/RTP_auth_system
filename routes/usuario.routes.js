@@ -1,11 +1,11 @@
 const express = require('express');
 
-const CategoryService = require('../services/aplicacion.service');
+const UsuarioService = require('../services/usuario.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const { createAplicacionSchema, updateAplicacionSchema, getAplicacionSchema } = require('../schemas/usuario.schema');
 
 const router = express.Router();
-const service = new CategoryService();
+const service = new UsuarioService();
 
 router.get('/', async (req, res, next) => {
   try {
@@ -16,12 +16,21 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id',
+router.get('/trabajador', async (req, res, next) => {
+  try {
+    const rol = await service.findTrabajadores();
+    res.json(rol);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:idUsuario',
   validatorHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const rol = await service.findOne(id);
+      const { idUsuario } = req.params;
+      const rol = await service.findOne(idUsuario);
       res.json(rol);
     } catch (error) {
       next(error);
@@ -42,14 +51,14 @@ router.post('/',
   }
 );
 
-router.patch('/:id',
+router.patch('/:idUsuario',
   validatorHandler(getAplicacionSchema, 'params'),
   validatorHandler(updateAplicacionSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { idUsuario } = req.params;
       const body = req.body;
-      const rol = await service.update(id, body);
+      const rol = await service.update(idUsuario, body);
       res.json(rol);
     } catch (error) {
       next(error);
@@ -57,13 +66,13 @@ router.patch('/:id',
   }
 );
 
-router.delete('/:id',
+router.delete('/:idUsuario',
   validatorHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      await service.delete(id);
-      res.status(201).json({id});
+      const { idUsuario } = req.params;
+      await service.delete(idUsuario);
+      res.status(201).json({idUsuario});
     } catch (error) {
       next(error);
     }
