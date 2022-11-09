@@ -10,6 +10,7 @@ const service = new UsuarioService();
 class AuthService {
   async getUser( email, password ){
     const user =  await service.findByEmail( email );
+
     if(!user){
       throw boom.unauthorized();
     }
@@ -24,7 +25,7 @@ class AuthService {
   signToken(user) {
     // console.log(user);
       const payload = {
-        sub: user.email,
+        credencial: user.idUsuario,
       }
       const token = jwt.sign(payload, JWT.secret);
       return({
