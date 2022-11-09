@@ -4,7 +4,10 @@ const passport = require('passport');
 // const { checkRoles } = require('./../middlewares/auth.handler');
 
 const AuthService = require('../services/auth.service');
+const UsuarioService = require('../services/usuario.service');
+
 const service = new AuthService();
+const userService = new UsuarioService();
 const router = express.Router();
 
 router.post('/login',
@@ -13,7 +16,8 @@ router.post('/login',
     async (req, res, next) => {
         try {
         console.log(req.body);
-        const user =  req.body;
+        const {idUsuario} = await userService.findByEmail(req.body.email)
+        const user =  {...req.body, idUsuario};
         res.status(201).json(service.signToken(user));
         } catch (error) {
         next(error);
