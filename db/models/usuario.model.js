@@ -7,7 +7,7 @@ const UsuarioSchema = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
     },
     email: {
         field: 'email',
@@ -38,7 +38,6 @@ const UsuarioSchema = {
 }
 class Usuario extends Model {
     static associate() {
-      //ASSOCIATIONS
     }
     static config(sequelize) {
         return {

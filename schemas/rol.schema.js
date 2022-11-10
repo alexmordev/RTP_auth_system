@@ -1,21 +1,29 @@
 const Joi = require('joi');
 
-const IdRol = Joi.number().integer();
+const idRol = Joi.number().integer();
 const nombre = Joi.string();
-const IdAplicacion = Joi.number().integer();
+const idAplicacion = Joi.number().integer();
+const fechaIncio =  Joi.date().iso();
+const fechaFin =  Joi.date().iso();
+
 
 const createRolSchema = Joi.object({
-  nombre: nombre.required(),
-  IdAplicacion: IdAplicacion.required()
+    nombre: nombre.required(),
+    fechaIncio,
+    fechaFin,
+    idAplicacion: idAplicacion.required()
 });
 
 const updateRolSchema = Joi.object({
-  nombre,
-  IdAplicacion,
+    nombre
 });
 
 const getRolSchema = Joi.object({
-  IdRol: IdRol.required(),
+    idRol: idRol.required(),
 });
 
-module.exports = { createRolSchema, updateRolSchema, getRolSchema }
+module.exports = {
+    createRolSchema,
+    updateRolSchema,
+    getRolSchema
+}

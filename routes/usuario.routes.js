@@ -50,7 +50,6 @@ router.post('/',
     }
   }
 );
-
 router.patch('/:idUsuario',
   validatorHandler(getAplicacionSchema, 'params'),
   validatorHandler(updateAplicacionSchema, 'body'),

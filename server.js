@@ -4,7 +4,7 @@ const cors = require('cors');
 const routerApi = require( "./routes" );
 const sequelizeSGA  = require('./libs/sequelize.sga');
 const sequelizeAUTH  = require('./libs/sequelize.auth');
-
+const setupModels = require('./db/models');
 
 class Server {
   constructor() {
@@ -13,6 +13,7 @@ class Server {
     this.middleware();
     this.app.use(express.json());
     this.routes();
+    setupModels( sequelizeSGA, sequelizeAUTH );
 
   }
   middleware() {

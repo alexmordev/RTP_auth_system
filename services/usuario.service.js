@@ -20,6 +20,7 @@ class UsuarioService {
     return res;
   }
   async findTrabajadores() {
+    console.log(sequelizeSGA.models);
     const res = await sequelizeSGA.models.Trabajador.findAll();
     return res;
   }
