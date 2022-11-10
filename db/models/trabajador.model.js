@@ -76,6 +76,7 @@ const TrabajadorSGASchema = {
 
 class Trabajador extends Model {
     static associate(){
+
     }
 
     static config(sequelize){
@@ -85,6 +86,7 @@ class Trabajador extends Model {
             tableName: TRABAJADOR_TABLE,
             createdAt: false,
             timestamps: false,
+            // schema: "trabajador_vista"
         }
     }
 }

@@ -6,7 +6,6 @@ const contraseña = Joi.string();
 const token = Joi.string();
 
 const createAplicacionSchema = Joi.object({
-    idUsuario,
     email: email.required(),
     contraseña:contraseña.required(),
 });
@@ -18,7 +17,7 @@ const updateAplicacionSchema = Joi.object({
 });
 
 const getAplicacionSchema = Joi.object({
-    idUsuario
+    idUsuario,
 });
 
 module.exports = {

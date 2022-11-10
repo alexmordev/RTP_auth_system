@@ -2,7 +2,7 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const ROL_TABLE = 'rol'; //definir nombre tabla;
 const RolSchema = {
-    IdRol: {
+    idRol: {
         field: 'id_rol',
         allowNull: false,
         autoIncrement: true,
@@ -13,10 +13,20 @@ const RolSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
-    IdAplicacion: {
+    idAplicacion: {
         field: 'id_aplicacion',
         allowNull: false,
         type: DataTypes.INTEGER
+    },
+    fechaIncio: {
+        allowNull: true,
+        field: 'fecha_Incio',
+        type: DataTypes.DATE
+    },
+    fechaFin: {
+        allowNull: true,
+        field: 'fecha_fin',
+        type: DataTypes.DATE
     },
     createdAt: {
         allowNull: false,
