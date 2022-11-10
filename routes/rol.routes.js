@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
     next(error);
   }
 });
-
 router.get('/:idRol',
   validatorHandler(getRolSchema, 'params'),
   async (req, res, next) => {
@@ -32,7 +31,6 @@ router.get('/:idRol',
     }
   }
 );
-
 router.post('/',
   validatorHandler(createRolSchema, 'body'),
   async (req, res, next) => {
@@ -45,7 +43,6 @@ router.post('/',
     }
   }
 );
-
 router.patch('/:idRol',
   validatorHandler(getRolSchema, 'params'),
   validatorHandler(updateRolSchema, 'body'),
@@ -60,7 +57,6 @@ router.patch('/:idRol',
     }
   }
 );
-
 router.delete('/:idRol',
   validatorHandler(getRolSchema, 'params'),
   async (req, res, next) => {
@@ -73,5 +69,4 @@ router.delete('/:idRol',
     }
   }
 );
-
 module.exports = router;

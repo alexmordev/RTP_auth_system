@@ -2,19 +2,19 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const ROL_USUARIO_TABLE = 'rol_usuario'; //definir nombre tabla;
 const RolUsuarioSchema = {
-    IdRolUsuario: {
+    idRolUsuario: {
         field: 'id_rol_usuario',
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-    IdRol: {
+    idRol: {
         field: 'id_rol',
         allowNull: false,
         type: DataTypes.INTEGER
     },
-    IdUsuario: {
+    idUsuario: {
         field: 'id_usuario',
         allowNull: false,
         type: DataTypes.INTEGER
@@ -31,7 +31,7 @@ const RolUsuarioSchema = {
         field: 'updated_at',
     },
 }
-class UsuarRolUsuario extends Model {
+class RolUsuario extends Model {
     static associate() {
       //ASSOCIATIONS
     }
@@ -39,9 +39,9 @@ class UsuarRolUsuario extends Model {
         return {
             sequelize,
             tableName: ROL_USUARIO_TABLE,
-            modelName: 'UsuarRolUsuario',
+            modelName: 'RolUsuario',
             timestamps: true
         }
     }
 }
-module.exports = { ROL_USUARIO_TABLE, RolUsuarioSchema, UsuarRolUsuario };
+module.exports = { ROL_USUARIO_TABLE, RolUsuarioSchema, RolUsuario };

@@ -1,35 +1,32 @@
 const boom = require('@hapi/boom');
+const sequelizeAUTH = require('../libs/sequelize.auth');
 
-const {models} = require('../libs/sequelize.auth');
-
-class RolService {
+class RolUsuarioService {
   constructor() {}
-
   async create(data) {
-    const newRol = await models.UsuarRolUsuario.create( data )
-    return newRol;
+    const newRolUsuario = await sequelizeAUTH.models.RolUsuario.create( data )
+    return newRolUsuario;
   }
   async find() {
-    const res = await models.UsuarRolUsuario.findAll();
-    return res;
+    const rolUsuario = await sequelizeAUTH.models.RolUsuario.findAll();
+    return rolUsuario;
   }
   async findOne(id) {
-    const rolUsuario  =  await models.UsuarRolUsuario.findByPk(id);// buscar con id
+    const rolUsuario  =  await sequelizeAUTH.models.RolUsuario.findByPk(id);// buscar con id
     if(!rolUsuario){
       boom.notFound('Registro no encontrado');
     }
     return rolUsuario;
   }
   async update(id, changes) {
-    const rol = await this.findOne(id);
-    const res = await rol.update(changes);
+    const rolUsuario = await this.findOne(id);
+    const res = await rolUsuario.update(changes);
     return res;
   }
   async delete(id) {
-    const rol = await this.findOne(id);
-    await rol.destroy()
+    const rolUsuario = await this.findOne(id);
+    await rolUsuario.destroy()
     return {id};
   }
 }
-
-module.exports = RolService;
+module.exports = RolUsuarioService;
