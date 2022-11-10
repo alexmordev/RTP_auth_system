@@ -1,11 +1,11 @@
 const express = require('express');
 
-const CategoryService = require('../services/aplicacion.service');
+const RolUsuarioService = require('../services/rolUsuario.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const { createRolUsuarioSchema, updateRolUsuarioSchema, getRolUsuarioSchema } = require('../schemas/rolUsuario');
 
 const router = express.Router();
-const service = new CategoryService();
+const service = new RolUsuarioService();
 
 router.get('/', async (req, res, next) => {
   try {
@@ -15,20 +15,18 @@ router.get('/', async (req, res, next) => {
     next(error);
   }
 });
-
-router.get('/:id',
+router.get('/:idRolUsuario',
   validatorHandler(getRolUsuarioSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const rol = await service.findOne(id);
+      const { idRolUsuario } = req.params;
+      const rol = await service.findOne(idRolUsuario);
       res.json(rol);
     } catch (error) {
       next(error);
     }
   }
 );
-
 router.post('/',
   validatorHandler(createRolUsuarioSchema, 'body'),
   async (req, res, next) => {
@@ -41,33 +39,30 @@ router.post('/',
     }
   }
 );
-
-router.patch('/:id',
+router.patch('/:idRolUsuario',
   validatorHandler(getRolUsuarioSchema, 'params'),
   validatorHandler(updateRolUsuarioSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { idRolUsuario } = req.params;
       const body = req.body;
-      const rol = await service.update(id, body);
+      const rol = await service.update(idRolUsuario, body);
       res.json(rol);
     } catch (error) {
       next(error);
     }
   }
 );
-
-router.delete('/:id',
+router.delete('/:idRolUsuario',
   validatorHandler(getRolUsuarioSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      await service.delete(id);
-      res.status(201).json({id});
+      const { idRolUsuario } = req.params;
+      await service.delete(idRolUsuario);
+      res.status(201).json({idRolUsuario});
     } catch (error) {
       next(error);
     }
   }
 );
-
 module.exports = router;

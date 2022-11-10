@@ -1,12 +1,8 @@
 const boom = require('@hapi/boom');
-
-// const {models} = require('../libs/sequelize.auth');
 const sequelizeAUTH = require('../libs/sequelize.auth');
-
 
 class RolService {
   constructor() {}
-
   async create(data) {
     const newRol = await sequelizeAUTH.models.Rol.create( data )
     return newRol;
@@ -33,5 +29,4 @@ class RolService {
     return {id};
   }
 }
-
 module.exports = RolService;
