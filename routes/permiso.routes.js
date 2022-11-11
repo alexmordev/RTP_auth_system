@@ -1,73 +1,72 @@
 const express = require('express');
 
-const CategoryService = require('../services/aplicacion.service');
+const PermisoService = require('../services/permiso.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const { createPermisoSchema, updatePermisoSchema, getPermisoSchema } = require('../schemas/permiso.schema');
+const {
+    createPermisoSchema,
+    updatePermisoSchema,
+    getPermisoSchema
+} = require('../schemas/permiso.schema');
 
 const router = express.Router();
-const permiso = new CategoryService();
+const service = new PermisoService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const aplicacion = await permiso.find();
+    const aplicacion = await service.find();
     res.json(aplicacion);
   } catch (error) {
     next(error);
   }
 });
-
-router.get('/:id',
+router.get('/:idPermiso',
   validatorHandler(getPermisoSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const permiso = await permiso.findOne(id);
+      const { idPermiso } = req.params;
+      const permiso = await service.findOne(idPermiso);
       res.json(permiso);
     } catch (error) {
       next(error);
     }
   }
 );
-
 router.post('/',
   validatorHandler(createPermisoSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newPermiso = await permiso.create(body);
+      const newPermiso = await service.create(body);
       res.status(201).json(newPermiso);
     } catch (error) {
       next(error);
     }
   }
 );
-
-router.patch('/:id',
+router.patch('/:idPermiso',
   validatorHandler(getPermisoSchema, 'params'),
   validatorHandler(updatePermisoSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { idPermiso } = req.params;
       const body = req.body;
-      const permiso = await permiso.update(id, body);
+      const permiso = await service.update(idPermiso, body);
       res.json(permiso);
     } catch (error) {
       next(error);
     }
   }
 );
-
-router.delete('/:id',
+router.delete('/:idPermiso',
   validatorHandler(getPermisoSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      await permiso.delete(id);
-      res.status(201).json({id});
+      const { idPermiso } = req.params;
+      await service.delete(idPermiso);
+      res.status(201).json({idPermiso});
     } catch (error) {
       next(error);
     }
   }
 );
-
 module.exports = router;

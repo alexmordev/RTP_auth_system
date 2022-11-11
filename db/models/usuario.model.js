@@ -1,4 +1,8 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
 
 const USUARIO_TABLE = 'usuario'; //definir nombre tabla;
 const UsuarioSchema = {

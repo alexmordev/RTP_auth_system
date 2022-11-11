@@ -21,10 +21,6 @@ const RolSchema = {
         field: 'id_aplicacion',
         allowNull: false,
         type: DataTypes.INTEGER,
-        references:{
-            model: 'aplicacion',
-            key: 'id_aplicacion',
-        },
     },
     fechaIncio: {
         allowNull: true,

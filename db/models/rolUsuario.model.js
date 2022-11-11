@@ -1,5 +1,9 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const { USUARIO_TABLE } = require('./usuario.model')
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
+// const { USUARIO_TABLE } = require('./usuario.model')
 
 const ROL_USUARIO_TABLE = 'rol_usuario'; //definir nombre tabla;
 const RolUsuarioSchema = {
@@ -19,10 +23,6 @@ const RolUsuarioSchema = {
         field: 'id_usuario',
         allowNull: false,
         type: DataTypes.INTEGER,
-        references:{
-            model: USUARIO_TABLE, //importa tu modelo User
-            key: 'id_usuario',
-        },
     },
     createdAt: {
         allowNull: false,
@@ -49,4 +49,8 @@ class RolUsuario extends Model {
         }
     }
 }
-module.exports = { ROL_USUARIO_TABLE, RolUsuarioSchema, RolUsuario };
+module.exports = {
+    ROL_USUARIO_TABLE,
+    RolUsuarioSchema,
+    RolUsuario
+};
