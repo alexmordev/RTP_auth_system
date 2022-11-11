@@ -1,6 +1,10 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
 
-const APLICAION_TABLE = 'aplicacion'; //definir nombre tabla;
+const APLICACION_TABLE = 'aplicacion'; //definir nombre tabla;
 const AplicacionSchema = {
     idAplicacion: {
         field: 'id_aplicacion',
@@ -34,20 +38,21 @@ const AplicacionSchema = {
     },
 }
 class Aplicacion extends Model {
-    static associate() {
+    static associate(models) {
       //ASSOCIATIONS
+      this.hasMany( models.Rol,{foreignKey: 'id_aplicacion'} );
     }
     static config(sequelize) {
         return {
             sequelize,
-            tableName: APLICAION_TABLE,
+            tableName: APLICACION_TABLE,
             modelName: 'Aplicacion',
             timestamps: true
         }
     }
 }
 module.exports = {
-    APLICAION_TABLE,
+    APLICACION_TABLE,
     AplicacionSchema,
     Aplicacion
 };

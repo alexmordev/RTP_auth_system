@@ -2,9 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const routerApi = require( "./routes" );
-const sequelizeSGA  = require('./libs/sequelize.sga');
-const sequelizeAUTH  = require('./libs/sequelize.auth');
-const setupModels = require('./db/models');
+const sequelize = require('./libs/sequelize')
+// const sequelizeSGA  = require('./libs/sequelize.sga');
+// const sequelizeAUTH  = require('./libs/sequelize.auth');
+// const setupModels = require('./db/models');
 
 class Server {
   constructor() {
@@ -13,7 +14,7 @@ class Server {
     this.middleware();
     this.app.use(express.json());
     this.routes();
-    setupModels( sequelizeSGA, sequelizeAUTH );
+    // setupModels( sequelizeAUTH );
 
   }
   middleware() {
@@ -33,16 +34,16 @@ class Server {
   listen () {
 
     this.app.listen(process.env.APP_PORT, async () => {
-      await  sequelizeSGA.authenticate().then(() => {
-          console.log(`Server port: ${process.env.APP_PORT} - Connected to database ${process.env.DBSGA_DATABASE}`);
+      await  sequelize.authenticate().then(() => {
+          console.log(`Server port: ${process.env.APP_PORT} - Connected to database ${process.env.DBAUTH_DATABASE}`);
         }).catch(err =>{
         console.log({error: 'Error trying to connect to database', err});
       })
-      await  sequelizeAUTH.authenticate().then(() => {
-        console.log(`Server port: ${process.env.APP_PORT} - Connected to database ${process.env.DBAUTH_DATABASE}`);
-      }).catch(err =>{
-      console.log({error: 'Error trying to connect to database', err});
-    })
+    //   await  sequelizeAUTH.authenticate().then(() => {
+    //     console.log(`Server port: ${process.env.APP_PORT} - Connected to database ${process.env.DBAUTH_DATABASE}`);
+    //   }).catch(err =>{
+    //   console.log({error: 'Error trying to connect to database', err});
+    // })
     })
   }
 }

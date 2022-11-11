@@ -37,7 +37,9 @@ const UsuarioSchema = {
     },
 }
 class Usuario extends Model {
-    static associate() {
+    static associate(models) {
+        this.hasMany( models.Usuario,{as: 'Usuario',  foreignKey: "id_usuario"})
+
     }
     static config(sequelize) {
         return {
@@ -48,4 +50,8 @@ class Usuario extends Model {
         }
     }
 }
-module.exports = { USUARIO_TABLE, UsuarioSchema, Usuario };
+module.exports = {
+    USUARIO_TABLE,
+    UsuarioSchema,
+    Usuario
+};

@@ -1,4 +1,5 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
+const { USUARIO_TABLE } = require('./usuario.model')
 
 const ROL_USUARIO_TABLE = 'rol_usuario'; //definir nombre tabla;
 const RolUsuarioSchema = {
@@ -17,7 +18,11 @@ const RolUsuarioSchema = {
     idUsuario: {
         field: 'id_usuario',
         allowNull: false,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        references:{
+            model: USUARIO_TABLE, //importa tu modelo User
+            key: 'id_usuario',
+        },
     },
     createdAt: {
         allowNull: false,
@@ -32,8 +37,8 @@ const RolUsuarioSchema = {
     },
 }
 class RolUsuario extends Model {
-    static associate() {
-      //ASSOCIATIONS
+    static associate(models) {
+        this.hasMany( models.Usuario,{as: 'usuario',  foreignKey: "id_usuario"})
     }
     static config(sequelize) {
         return {
