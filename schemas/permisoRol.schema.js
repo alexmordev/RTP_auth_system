@@ -1,21 +1,25 @@
 const Joi = require('joi');
 
-const IdPermisoRol = Joi.number().integer();
-const IdPermiso = Joi.number().integer();
-const IdRol = Joi.number().integer();
+const idPermisoRol = Joi.number().integer();
+const idPermiso = Joi.number().integer();
+const idRol = Joi.number().integer();
 
 const createPermisoRolSchema = Joi.object({
-  IdPermiso: IdPermiso.required(),
-  IdRol: IdRol.required()
+    idPermiso: idPermiso.required(),
+    idRol: idRol.required()
 });
 
 const updatePermisoRolSchema = Joi.object({
-  IdPermiso,
-  IdRol,
+    idPermiso,
+    idRol,
 });
 
 const getPermisoRolSchema = Joi.object({
-  IdPermisoRol: IdPermisoRol.required(),
+    idPermisoRol
 });
 
-module.exports = { createPermisoRolSchema,  updatePermisoRolSchema,  getPermisoRolSchema }
+module.exports = {
+    createPermisoRolSchema,
+    updatePermisoRolSchema,
+    getPermisoRolSchema
+}

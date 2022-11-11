@@ -3,6 +3,8 @@ const { Permiso, PermisoSchema } = require('./permiso.model');
 const { Rol, RolSchema } = require('./rol.model');
 const { RolUsuario, RolUsuarioSchema } = require('./rolUsuario.model');
 const { Usuario, UsuarioSchema } = require('./usuario.model');
+const { PermisoRol, PermisoRolSchema } = require('./permisoRol.model');
+
 // const { Trabajador, TrabajadorSGASchema } = require('./trabajador.model');
 
 function setupModels(sequelizeAuth) {
@@ -11,15 +13,17 @@ function setupModels(sequelizeAuth) {
     Rol.init(RolSchema, Rol.config(sequelizeAuth));
     Aplicacion.init(AplicacionSchema, Aplicacion.config(sequelizeAuth));
     Permiso.init(PermisoSchema, Permiso.config(sequelizeAuth));
+    PermisoRol.init(PermisoRolSchema, PermisoRol.config(sequelizeAuth));
+
 //   Trabajador.init( TrabajadorSGASchema, Trabajador.config(sequelizeSGA) );
 
     Usuario.associate(sequelizeAuth.models);
     RolUsuario.associate(sequelizeAuth.models);
     Rol.associate(sequelizeAuth.models);
     Aplicacion.associate(sequelizeAuth.models);
+    // Permiso.associate(sequelizeAuth.models);
 
 //   Trabajador.associate(sequelizeAuth.models);
-  // Permiso.associate(sequelize.models);
   // PermisoRol.associate(sequelize.models);
   // UsuarRolUsuario.associate(sequelize.models);
   // Usuario.associate(sequelize.models);
