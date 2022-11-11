@@ -1,13 +1,11 @@
 const boom = require('@hapi/boom');
-
-const {models} = require('../libs/sequelize.auth');
+const {models} = require('../libs/sequelize');
 
 class PermisoRolService {
   constructor() {}
-
   async create(data) {
-    const newpermisoRol = await models.PermisoRol.create( data )
-    return newpermisoRol;
+    const newPermisoRol = await models.PermisoRol.create( data )
+    return newPermisoRol;
   }
   async find() {
     const res = await models.PermisoRol.findAll();
@@ -31,5 +29,4 @@ class PermisoRolService {
     return {id};
   }
 }
-
 module.exports = PermisoRolService;
