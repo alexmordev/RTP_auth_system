@@ -1,14 +1,16 @@
 const boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
-const sequelizeAUTH = require('../libs/sequelize.auth');
-const sequelizeSGA = require('../libs/sequelize.sga');
+// const sequelizeAUTH = require('../libs/sequelize.auth');
+// const sequelizeSGA = require('../libs/sequelize.sga');
+const {models} = require('../libs/sequelize');
+
 
 class UsuarioService {
   constructor() {}
 
   async create(data) {
     const hash = await bcrypt.hash( data.contraseña, 13 );
-    const newUsuario = await sequelizeAUTH.models.Usuario.create({
+    const newUsuario = await models.Usuario.create({
         ...data,
         contraseña: hash
     })
@@ -16,23 +18,25 @@ class UsuarioService {
     return newUsuario;
   }
   async find() {
-    const res = await sequelizeAUTH.models.Usuario.findAll();
+    const res = await models.Usuario.findAll({
+        include:[{association: 'RolesUsuarios',include: ['aplicacion']}]
+    });
     return res;
   }
   async findTrabajadores() {
-    console.log(sequelizeSGA.models);
-    const res = await sequelizeSGA.models.Trabajador.findAll();
+    // console.log(models);
+    const res = await models.Trabajador.findAll();
     return res;
   }
   async findOne(id) {
-    const usuario  =  await sequelizeAUTH.models.Usuario.findByPk(id);// buscar con id
+    const usuario  =  await models.Usuario.findByPk(id);// buscar con id
     if(!usuario){
       boom.notFound('Registro no encontrado');
     }
     return usuario;
   }
   async findByEmail(email) {
-    const rta = await sequelizeAUTH.models.Usuario.findOne({
+    const rta = await models.Usuario.findOne({
      where:{
       email
      }

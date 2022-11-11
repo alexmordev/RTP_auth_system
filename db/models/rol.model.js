@@ -1,4 +1,8 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
 
 const ROL_TABLE = 'rol'; //definir nombre tabla;
 const RolSchema = {
@@ -16,7 +20,11 @@ const RolSchema = {
     idAplicacion: {
         field: 'id_aplicacion',
         allowNull: false,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        references:{
+            model: 'aplicacion',
+            key: 'id_aplicacion',
+        },
     },
     fechaIncio: {
         allowNull: true,
@@ -41,8 +49,15 @@ const RolSchema = {
     },
 }
 class Rol extends Model {
-    static associate() {
+    static associate(models) {
       //ASSOCIATIONS
+        this.belongsTo( models.Aplicacion,{foreignKey: 'id_aplicacion', as:'aplicacion'} )
+        this.belongsToMany( models.Usuario,{
+            as: 'RolesUsuarios',
+            through: models.RolUsuario,
+            foreignKey: 'id_rol',
+        } );
+
     }
     static config(sequelize) {
         return {
@@ -53,4 +68,8 @@ class Rol extends Model {
         }
     }
 }
-module.exports = { ROL_TABLE, RolSchema, Rol };
+module.exports = {
+    ROL_TABLE,
+    RolSchema,
+    Rol,
+};
