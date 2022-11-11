@@ -1,8 +1,12 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
 
 const PERMISO_TABLE = 'permiso'; //definir nombre tabla;
 const PermisoSchema = {
-    IdPermiso: {
+    idPermiso: {
         field: 'id_permiso',
         allowNull: false,
         autoIncrement: true,
@@ -42,4 +46,8 @@ class Permiso extends Model {
         }
     }
 }
-module.exports = { PERMISO_TABLE, PermisoSchema, Permiso };
+module.exports = {
+    PERMISO_TABLE,
+    PermisoSchema,
+    Permiso
+};
