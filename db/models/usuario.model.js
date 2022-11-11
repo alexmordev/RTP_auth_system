@@ -39,7 +39,11 @@ const UsuarioSchema = {
 class Usuario extends Model {
     static associate(models) {
         this.hasMany( models.Usuario,{as: 'Usuario',  foreignKey: "id_usuario"})
-
+        this.belongsToMany( models.Rol,{
+            as: 'RolesUsuarios',
+            through: models.RolUsuario,
+            foreignKey:'id_usuario',
+        } );
     }
     static config(sequelize) {
         return {

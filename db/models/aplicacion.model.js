@@ -39,8 +39,8 @@ const AplicacionSchema = {
 }
 class Aplicacion extends Model {
     static associate(models) {
-      //ASSOCIATIONS
-      this.hasMany( models.Rol,{foreignKey: 'id_aplicacion'} );
+        //ASSOCIATIONS
+        this.hasMany( models.Rol,{foreignKey: 'id_aplicacion', as: 'roles'} );
     }
     static config(sequelize) {
         return {

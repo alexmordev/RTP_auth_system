@@ -10,9 +10,7 @@ class AplicacionService {
   }
   async find() {
     const res = await models.Aplicacion.findAll({
-        include:{
-            model:models.Rol
-        }
+        include:['roles']
     });
     return res;
   }

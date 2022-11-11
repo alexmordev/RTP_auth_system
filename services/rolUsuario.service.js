@@ -11,9 +11,7 @@ class RolUsuarioService {
     return newRolUsuario;
   }
   async find() {
-    const rolUsuario = await models.RolUsuario.findAll({
-        include:['usuario']
-    });
+    const rolUsuario = await models.RolUsuario.findAll();
     return rolUsuario;
   }
   async findOne(id) {

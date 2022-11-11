@@ -18,7 +18,9 @@ class UsuarioService {
     return newUsuario;
   }
   async find() {
-    const res = await models.Usuario.findAll();
+    const res = await models.Usuario.findAll({
+        include:[{association: 'RolesUsuarios',include: ['aplicacion']}]
+    });
     return res;
   }
   async findTrabajadores() {

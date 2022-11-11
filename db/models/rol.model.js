@@ -51,7 +51,13 @@ const RolSchema = {
 class Rol extends Model {
     static associate(models) {
       //ASSOCIATIONS
-        this.belongsTo( models.Aplicacion,{foreignKey: 'id_aplicacion'} )
+        this.belongsTo( models.Aplicacion,{foreignKey: 'id_aplicacion', as:'aplicacion'} )
+        this.belongsToMany( models.Usuario,{
+            as: 'RolesUsuarios',
+            through: models.RolUsuario,
+            foreignKey: 'id_rol',
+        } );
+
     }
     static config(sequelize) {
         return {
