@@ -10,7 +10,8 @@ class RolService {
   }
   async find() {
     const res = await models.Rol.findAll({
-        include:['aplicacion']
+        include:[{association: 'PermisosRoles', attributes:['idPermiso','nombre','descripcion']}, 'aplicacion']
+
     });
     return res;
   }

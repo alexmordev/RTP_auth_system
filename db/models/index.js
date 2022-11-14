@@ -21,10 +21,10 @@ function setupModels(sequelizeAuth) {
     RolUsuario.associate(sequelizeAuth.models);
     Rol.associate(sequelizeAuth.models);
     Aplicacion.associate(sequelizeAuth.models);
-    // Permiso.associate(sequelizeAuth.models);
+    Permiso.associate(sequelizeAuth.models);
+    PermisoRol.associate(sequelizeAuth.models);
 
 //   Trabajador.associate(sequelizeAuth.models);
-  // PermisoRol.associate(sequelize.models);
   // UsuarRolUsuario.associate(sequelize.models);
   // Usuario.associate(sequelize.models);
 }
