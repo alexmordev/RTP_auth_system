@@ -53,6 +53,11 @@ class Rol extends Model {
             through: models.RolUsuario,
             foreignKey: 'id_rol',
         } );
+        this.belongsToMany( models.Permiso,{
+            as: 'PermisosRoles',
+            through: models.PermisoRol,
+            foreignKey: 'id_rol',
+        } );
 
     }
     static config(sequelize) {

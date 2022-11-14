@@ -34,8 +34,13 @@ const PermisoSchema = {
     },
 }
 class Permiso extends Model {
-    static associate() {
+    static associate(models) {
       //ASSOCIATIONS
+        this.belongsToMany( models.Rol,{
+            as: 'PermisosRoles',
+            through: models.PermisoRol,
+            foreignKey: 'id_permiso',
+        } );
     }
     static config(sequelize) {
         return {

@@ -18,9 +18,7 @@ class UsuarioService {
     return newUsuario;
   }
   async find() {
-    const res = await models.Usuario.findAll({
-        include:[{association: 'RolesUsuarios',include: ['aplicacion']}]
-    });
+    const res = await models.Usuario.findAll();
     return res;
   }
   async findTrabajadores() {
@@ -29,7 +27,9 @@ class UsuarioService {
     return res;
   }
   async findOne(id) {
-    const usuario  =  await models.Usuario.findByPk(id);// buscar con id
+    const usuario  =  await models.Usuario.findByPk(id,{
+        include:[{association: 'RolesUsuarios',include: ['aplicacion','PermisosRoles']}]
+    });// buscar con id
     if(!usuario){
       boom.notFound('Registro no encontrado');
     }

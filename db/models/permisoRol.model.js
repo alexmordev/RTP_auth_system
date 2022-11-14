@@ -37,7 +37,6 @@ const PermisoRolSchema = {
 }
 class PermisoRol extends Model {
     static associate() {
-        // this.hasMany( models.Usuario,{as: 'usuario',  foreignKey: "id_usuario"})
     }
     static config(sequelize) {
         return {
