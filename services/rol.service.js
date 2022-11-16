@@ -13,7 +13,7 @@ class RolService {
         },
         defaults: data
     });
-    return (rol) ? newRol: "Una aplicación no debe tener dos Roles con el mismo nombre";
+    return (rol) ? newRol: "Una aplicación no debe tener dos Roles con el mismo";
   }
   async find() {
     const res = await models.Rol.findAll({
