@@ -24,6 +24,11 @@ const RolUsuarioSchema = {
         allowNull: false,
         type: DataTypes.INTEGER,
     },
+    createdFor: {
+        field: 'createdFor',
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

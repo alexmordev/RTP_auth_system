@@ -11,11 +11,11 @@ const RolSchema = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
     },
     nombre: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     idAplicacion: {
         field: 'id_aplicacion',
@@ -36,7 +36,7 @@ const RolSchema = {
         allowNull: false,
         type: DataTypes.DATE,
         field: 'create_at',
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
     },
     updatedAt: {
         allowNull: false,

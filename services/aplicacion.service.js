@@ -9,13 +9,13 @@ class AplicacionService {
     return newAplication;
   }
   async find() {
-    const res = await models.Aplicacion.findAll({
-        include:['roles']
-    });
+    const res = await models.Aplicacion.findAll();
     return res;
   }
   async findOne(id) {
-    const aplication  =  await models.Aplicacion.findByPk(id);// buscar con id
+    const aplication  =  await models.Aplicacion.findByPk(id,{
+        include:['roles']
+    });// buscar con id
     if(!aplication){
       boom.notFound('Registro no encontrado');
     }

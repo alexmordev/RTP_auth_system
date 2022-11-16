@@ -1,12 +1,19 @@
 const boom = require('@hapi/boom');
+const { Op } = require("sequelize");
 // const sequelizeAUTH = require('../libs/sequelize.auth');
 const {models} = require('../libs/sequelize');
 
 class RolService {
   constructor() {}
   async create(data) {
-    const newRol = await models.Rol.create( data )
-    return newRol;
+    const {nombre, idAplicacion} = data;
+    const [newRol, rol] = await models.Rol.findOrCreate({
+        where: {
+            [Op.and]: [{ nombre },{ idAplicacion}]
+        },
+        defaults: data
+    });
+    return (rol) ? newRol: "Una aplicación no debe tener dos Roles con el mismo nombre";
   }
   async find() {
     const res = await models.Rol.findAll({
@@ -16,7 +23,9 @@ class RolService {
     return res;
   }
   async findOne(id) {
-    const rol  =  await models.Rol.findByPk(id);
+    const rol  =  await models.Rol.findByPk(id,{
+        include: ['aplicacion']
+    });
     if(!rol){
       boom.notFound('Registro no encontrado');
     }

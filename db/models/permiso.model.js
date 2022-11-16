@@ -15,7 +15,7 @@ const PermisoSchema = {
     },
     nombre: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     descripcion: {
         allowNull: false,
