@@ -1,16 +1,16 @@
 const Joi = require('joi');
 
 const idPermisoRol = Joi.number().integer();
-const idPermiso = Joi.number().integer();
+const permisos = Joi.array();
 const idRol = Joi.number().integer();
 
 const createPermisoRolSchema = Joi.object({
-    idPermiso: idPermiso.required(),
+    permisos: permisos.required(),
     idRol: idRol.required()
 });
 
 const updatePermisoRolSchema = Joi.object({
-    idPermiso,
+    permisos,
     idRol,
 });
 
