@@ -15,7 +15,8 @@ const AplicacionSchema = {
     },
     nombre: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true,
     },
     estatus: {
         allowNull: false,
@@ -23,7 +24,8 @@ const AplicacionSchema = {
     },
     path: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
     },
     createdAt: {
         allowNull: false,
