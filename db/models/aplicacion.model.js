@@ -1,45 +1,60 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
 
-const APLICAION_TABLE = 'aplicacion'; //definir nombre tabla;
+const APLICACION_TABLE = 'aplicacion'; //definir nombre tabla;
 const AplicacionSchema = {
-    
-    IdAplicacion: {
+    idAplicacion: {
         field: 'id_aplicacion',
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-
     nombre: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true,
     },
-
     estatus: {
-        field: 'estatus',
         allowNull: false,
         type: DataTypes.INTEGER
     },
-
     path: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
     },
-  
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'create_at',
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+    },
 }
 class Aplicacion extends Model {
     static associate(models) {
-      //ASSOCIATIONS
+        //ASSOCIATIONS
+        this.hasMany( models.Rol,{foreignKey: 'id_aplicacion', as: 'roles'} );
     }
     static config(sequelize) {
         return {
             sequelize,
-            tableName: APLICAION_TABLE,
+            tableName: APLICACION_TABLE,
             modelName: 'Aplicacion',
-            createdAt: false,
-            timestamps: false
+            timestamps: true
         }
     }
 }
-module.exports = { APLICAION_TABLE, AplicacionSchema, Aplicacion };
+module.exports = {
+    APLICACION_TABLE,
+    AplicacionSchema,
+    Aplicacion
+};

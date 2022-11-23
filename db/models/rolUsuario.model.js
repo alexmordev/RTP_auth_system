@@ -1,40 +1,61 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const {
+    Model,
+    DataTypes,
+    Sequelize
+} = require('sequelize');
+// const { USUARIO_TABLE } = require('./usuario.model')
 
 const ROL_USUARIO_TABLE = 'rol_usuario'; //definir nombre tabla;
 const RolUsuarioSchema = {
-    IdRolUsuario: {
+    idRolUsuario: {
         field: 'id_rol_usuario',
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-
-    IdRol: {
+    idRol: {
         field: 'id_rol',
         allowNull: false,
         type: DataTypes.INTEGER
     },
-
-    IdUsuario: {
+    idUsuario: {
         field: 'id_usuario',
         allowNull: false,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
     },
-  
+    createdFor: {
+        field: 'createdFor',
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'create_at',
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+    },
 }
-class UsuarRolUsuario extends Model {
+class RolUsuario extends Model {
     static associate(models) {
-      //ASSOCIATIONS
+        this.hasMany( models.Usuario,{as: 'usuario',  foreignKey: "id_usuario"})
     }
     static config(sequelize) {
         return {
             sequelize,
             tableName: ROL_USUARIO_TABLE,
-            modelName: 'UsuarRolUsuario',
-            createdAt: false,
-            timestamps: false
+            modelName: 'RolUsuario',
+            timestamps: true
         }
     }
 }
-module.exports = { ROL_USUARIO_TABLE, RolUsuarioSchema, UsuarRolUsuario }; 
+module.exports = {
+    ROL_USUARIO_TABLE,
+    RolUsuarioSchema,
+    RolUsuario
+};

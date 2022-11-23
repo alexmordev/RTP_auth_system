@@ -1,13 +1,32 @@
 const boom = require('@hapi/boom');
-
 const {models} = require('../libs/sequelize');
+const { Op } = require("sequelize");
+
 
 class PermisoRolService {
   constructor() {}
-
   async create(data) {
-    const newpermisoRol = await models.PermisoRol.create( data )
-    return newpermisoRol;
+    const arregloPermisos = data.permisos;
+    const arregloResponse = [];
+    console.log(data.idRol);
+
+    for( let i = 0; i < arregloPermisos.length; i++){
+        let [newPermisoRol, created] = await models.PermisoRol.findOrCreate({
+
+            where: {
+                [Op.and]: [{ idPermiso:arregloPermisos[i] },{ idRol:data.idRol}]
+            },
+            defaults:{
+                idPermiso: arregloPermisos[i],
+                idRol: data.idRol
+            },
+
+        });
+        await (created)
+            ? arregloResponse.push(newPermisoRol)
+            : arregloResponse.push(created)
+    }
+    return arregloResponse;
   }
   async find() {
     const res = await models.PermisoRol.findAll();
@@ -31,5 +50,4 @@ class PermisoRolService {
     return {id};
   }
 }
-
 module.exports = PermisoRolService;

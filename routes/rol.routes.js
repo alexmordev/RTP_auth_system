@@ -1,11 +1,15 @@
 const express = require('express');
 
-const CategoryService = require('../services/aplicacion.service');
+const RolService = require('../services/rol.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const { createRolSchema, updateRolSchema, getRolSchema } = require('../schemas/rol.schema');
+const {
+    createRolSchema,
+    updateRolSchema,
+    getRolSchema
+} = require('../schemas/rol.schema');
 
 const router = express.Router();
-const service = new CategoryService();
+const service = new RolService();
 
 router.get('/', async (req, res, next) => {
   try {
@@ -15,20 +19,18 @@ router.get('/', async (req, res, next) => {
     next(error);
   }
 });
-
-router.get('/:id',
+router.get('/:idRol',
   validatorHandler(getRolSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const rol = await service.findOne(id);
+      const { idRol } = req.params;
+      const rol = await service.findOne(idRol);
       res.json(rol);
     } catch (error) {
       next(error);
     }
   }
 );
-
 router.post('/',
   validatorHandler(createRolSchema, 'body'),
   async (req, res, next) => {
@@ -41,33 +43,30 @@ router.post('/',
     }
   }
 );
-
-router.patch('/:id',
+router.patch('/:idRol',
   validatorHandler(getRolSchema, 'params'),
   validatorHandler(updateRolSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { idRol } = req.params;
       const body = req.body;
-      const rol = await service.update(id, body);
+      const rol = await service.update(idRol, body);
       res.json(rol);
     } catch (error) {
       next(error);
     }
   }
 );
-
-router.delete('/:id',
+router.delete('/:idRol',
   validatorHandler(getRolSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      await service.delete(id);
-      res.status(201).json({id});
+      const { idRol } = req.params;
+      await service.delete(idRol);
+      res.status(201).json({idRol});
     } catch (error) {
       next(error);
     }
   }
 );
-
 module.exports = router;

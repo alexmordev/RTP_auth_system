@@ -1,10 +1,9 @@
 const boom = require('@hapi/boom');
-
+// const sequelizeAUTH = require('../libs/sequelize.auth');
 const {models} = require('../libs/sequelize');
 
-class RolService {
+class AplicacionService {
   constructor() {}
-
   async create(data) {
     const newAplication = await models.Aplicacion.create( data )
     return newAplication;
@@ -14,7 +13,9 @@ class RolService {
     return res;
   }
   async findOne(id) {
-    const aplication  =  await models.Aplicacion.findByPk(id);// buscar con id
+    const aplication  =  await models.Aplicacion.findByPk(id,{
+        include:['roles']
+    });// buscar con id
     if(!aplication){
       boom.notFound('Registro no encontrado');
     }
@@ -31,5 +32,4 @@ class RolService {
     return {id};
   }
 }
-
-module.exports = RolService;
+module.exports = AplicacionService;

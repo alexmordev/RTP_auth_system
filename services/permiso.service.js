@@ -1,35 +1,32 @@
-const boom = require('@hapi/boom');
-
-const {models} = require('../libs/sequelize');
+// const boom = require('@hapi/boom');
+const { models }= require('../libs/sequelize');
 
 class PermisoService {
-  constructor() {}
 
+  constructor(){
+  }
   async create(data) {
-    const newPermiso = await models.Permiso.create( data )
+    console.log(models.Permiso);
+    const newPermiso = await models.Permiso.create(data);
     return newPermiso;
   }
   async find() {
-    const res = await models.Permiso.findAll();
-    return res;
+    const permisos = await models.Permiso.findAll();
+    return permisos;
   }
   async findOne(id) {
-    const permiso  =  await models.Permiso.findByPk(id);// buscar con id
-    if(!permiso){
-      boom.notFound('Registro no encontrado');
-    }
+    const permiso = await models.Permiso.findByPk(id);
     return permiso;
   }
   async update(id, changes) {
     const permiso = await this.findOne(id);
-    const res = await permiso.update(changes);
-    return res;
+    const rta = await permiso.update(changes);
+    return rta;
   }
   async delete(id) {
     const permiso = await this.findOne(id);
-    await permiso.destroy()
-    return {id};
+    await permiso.destroy();
+    return { id };
   }
 }
-
 module.exports = PermisoService;

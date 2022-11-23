@@ -196,4 +196,7 @@ $RECYCLE.BIN/
 postgres_data
 mysql_data
 
+db/migrations.old
+docs
+
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,linux,macos
