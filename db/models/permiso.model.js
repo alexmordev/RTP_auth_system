@@ -32,6 +32,11 @@ const PermisoSchema = {
         type: DataTypes.DATE,
         field: 'updated_at',
     },
+    codigo: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        field: 'codigo',
+    },
 }
 class Permiso extends Model {
     static associate(models) {
