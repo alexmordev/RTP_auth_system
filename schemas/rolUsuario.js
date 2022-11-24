@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const idRolUsuario = Joi.number().integer();
-const idRol = Joi.number().integer();
+const idRol = Joi.array().items(Joi.number().integer());
 const idUsuario = Joi.number().integer();
 const createdFor = Joi.number().integer();
 
@@ -10,6 +10,7 @@ const createRolUsuarioSchema = Joi.object({
     idUsuario: idUsuario.required(),
     createdFor: createdFor.required(),
 });
+
 const updateRolUsuarioSchema = Joi.object({
     idRol,
 });
