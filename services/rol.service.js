@@ -24,7 +24,7 @@ class RolService {
   }
   async findOne(id) {
     const rol  =  await models.Rol.findByPk(id,{
-        include: ['aplicacion']
+        include: ['aplicacion','PermisosRoles']
     });
     if(!rol){
       boom.notFound('Registro no encontrado');

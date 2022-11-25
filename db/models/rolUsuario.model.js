@@ -3,7 +3,6 @@ const {
     DataTypes,
     Sequelize
 } = require('sequelize');
-// const { USUARIO_TABLE } = require('./usuario.model')
 
 const ROL_USUARIO_TABLE = 'rol_usuario'; //definir nombre tabla;
 const RolUsuarioSchema = {

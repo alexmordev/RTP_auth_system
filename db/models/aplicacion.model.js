@@ -38,6 +38,11 @@ const AplicacionSchema = {
         type: DataTypes.DATE,
         field: 'updated_at',
     },
+    image: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        field: 'image',
+    },
 }
 class Aplicacion extends Model {
     static associate(models) {
