@@ -8,7 +8,6 @@ class PermisoRolService {
   async create(data) {
     const arregloPermisos = data.permisos;
     const arregloResponse = [];
-    console.log(data.idRol);
 
     for( let i = 0; i < arregloPermisos.length; i++){
         let [newPermisoRol, created] = await models.PermisoRol.findOrCreate({
