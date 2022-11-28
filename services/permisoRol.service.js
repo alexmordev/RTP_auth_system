@@ -2,7 +2,6 @@ const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 const { Op } = require("sequelize");
 
-
 class PermisoRolService {
   constructor() { }
   async create(data) {
@@ -32,52 +31,40 @@ class PermisoRolService {
     const res = await models.PermisoRol.findAll();
     return res;
   }
- 
-  async credencialAplicacion(query) {
 
+  async credencialAplicacion(query) {
     const permisoUsuario = await models.Rol.findAll({
       include: [
+        {
+          as: 'RolesUsuarios',
+          model: models.Usuario,
+          where: {
+            idUsuario: query.idUsuario
+          }
+        },
+
         {
           as: 'PermisosRoles',
           model: models.Permiso,
         },
-        {
-          as: 'RolesUsuarios',
-          model: models.Usuario,
-        },
-
       ],
+      where: {
+        idAplicacion: query.idAplicacion
+      }
     });
+    const mostrarData = [];
 
-    const data = await models.PermisoRol.findAll({
-      attributes: ['idPermisoRol','idPermiso']
-    });
-
-    const datosArray = [];
-
-    const permisos = data.map(dat => ({ 
-      idPermisoRol: dat.dataValues.idPermisoRol,
-      idPermiso: dat.dataValues.idPermiso
-    }))
-    
-
-    permisoUsuario.forEach(datos => {
-      
-      datosArray.push({
-        idRol: `${datos.idRol}`,
-        idAplicacion: `${datos.idAplicacion}`,
-        idPermiso: `${datos.idAplicacion}`,
-      }); 
-      console.log(datos.PermisosRoles);
-      // console.log(datos.RolesUsuarios);
+    permisoUsuario.forEach(data => {
+      mostrarData.push({
+        idRol: `${data.idRol}`,
+        idAplicacion: `${data.idAplicacion}`,
+        idUsuario:    `${permisoUsuario[0]._previousDataValues.RolesUsuarios[0].idUsuario}`,
+        idPermiso:    `${permisoUsuario[0]._previousDataValues.PermisosRoles[0].idPermiso}`,
+        idPermisoRol: `${permisoUsuario[0]._previousDataValues.PermisosRoles[0].PermisoRol.idPermisoRol}`
+      })
     })
 
-    // if (!permisoUsuario) {
-    //   boom.notFound('Registro no encontrado');
-    // }
-
-
-    return datosArray;
+    return mostrarData;
   }
 
   async findOne(id) {
