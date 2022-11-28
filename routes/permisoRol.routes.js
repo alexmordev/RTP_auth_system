@@ -20,6 +20,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/credencialAplicacion',
+  validatorHandler(getPermisoRolSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      // const { idPermisoRol } = req.params;
+      const aplicacion = await permisoRol.credencialAplicacion(req.query);
+      res.json(aplicacion);
+    } catch (error) {
+      next(error);
+    }
+});
+
 router.get('/:idPermisoRol',
   validatorHandler(getPermisoRolSchema, 'params'),
   async (req, res, next) => {
