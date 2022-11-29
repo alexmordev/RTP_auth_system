@@ -3,11 +3,13 @@ const express = require('express');
 const UsuarioService = require('../services/usuario.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const { createAplicacionSchema, updateAplicacionSchema, getAplicacionSchema } = require('../schemas/usuario.schema');
+const { validarJWT } = require('../middlewares/validarJwt');
 
 const router = express.Router();
 const service = new UsuarioService();
 
-router.get('/', async (req, res, next) => {
+router.get('/', validarJWT,
+ async (req, res, next) => {
   try {
     const rol = await service.find();
     res.json(rol);
@@ -16,7 +18,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/trabajador', async (req, res, next) => {
+router.get('/trabajador',validarJWT,
+ async (req, res, next) => {
   try {
     const rol = await service.findTrabajadores();
     res.json(rol);
@@ -25,7 +28,7 @@ router.get('/trabajador', async (req, res, next) => {
   }
 });
 
-router.get('/:idUsuario',
+router.get('/:idUsuario',validarJWT,
   validatorHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -38,7 +41,7 @@ router.get('/:idUsuario',
   }
 );
 
-router.post('/',
+router.post('/',validarJWT,
   validatorHandler(createAplicacionSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -50,7 +53,7 @@ router.post('/',
     }
   }
 );
-router.patch('/:idUsuario',
+router.patch('/:idUsuario',validarJWT,
   validatorHandler(getAplicacionSchema, 'params'),
   validatorHandler(updateAplicacionSchema, 'body'),
   async (req, res, next) => {
@@ -65,7 +68,7 @@ router.patch('/:idUsuario',
   }
 );
 
-router.delete('/:idUsuario',
+router.delete('/:idUsuario',validarJWT,
   validatorHandler(getAplicacionSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -74,7 +77,7 @@ router.delete('/:idUsuario',
       res.status(201).json({idUsuario});
     } catch (error) {
       next(error);
-    }
+    }s
   }
 );
 
