@@ -11,6 +11,15 @@ const service = new AuthService();
 const userService = new UsuarioService();
 const router = express.Router();
 
+router.get('/',validarJWT,
+ async (req, res, next) => {
+  try {
+    res.json('Token Valido');
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/login',
 //   limiter,
     passport.authenticate('local', {session:false} ),
@@ -25,15 +34,6 @@ router.post('/login',
   }
 );
 
-router.get('/:token',validarJWT,
- async (req, res, next) => {
-  // const token = req.header('x-token');
-  try {
-    res.json('Bien');
-  } catch (error) {
-    next(error);
-  }
-});
 /*
 router.post('/recovery',
   async (req, res, next) => {
