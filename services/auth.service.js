@@ -3,7 +3,7 @@ const boom = require( '@hapi/boom' )
 const bcrypt = require('bcrypt')
 const jwt = require( 'jsonwebtoken' );
 const { JWT }= require('../config/config');
-
+const { validarJWT } = require('../middlewares/validarJwt');
 const UsuarioService = require('./usuario.service');
 const service = new UsuarioService();
 
@@ -23,16 +23,31 @@ class AuthService {
   }
 
   signToken(user) {
-    // console.log(user);
+
       const payload = {
-        credencial: user.idUsuario,
+        credencial: user,
       }
-      const token = jwt.sign(payload, JWT.secret);
+      const token = jwt.sign(payload, JWT.secret,{  expiresIn: JWT.expires });
+    
       return({
         user,
         token
       })
     }
+
+   validarToken(token){
+    try {
+      const valida = validarJWT(token); 
+      console.log(token)
+      return valida
+      
+    } catch (error) {
+      return error
+    }
+
+
+  
+  }
 
   async sendRecovery(email){
     const user =  await service.findByEmail( email );

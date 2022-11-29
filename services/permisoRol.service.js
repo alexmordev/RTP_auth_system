@@ -56,7 +56,8 @@ class PermisoRolService {
 
     permisoUsuario.forEach(data => {
       mostrarData.push({
-        idRol: `${data.idRol}`,
+
+        idRol:        `${data.idRol}`,
         idAplicacion: `${data.idAplicacion}`,
         idUsuario:    `${permisoUsuario[0]._previousDataValues.RolesUsuarios[0].idUsuario}`,
         idPermiso:    `${permisoUsuario[0]._previousDataValues.PermisosRoles[0].idPermiso}`,
