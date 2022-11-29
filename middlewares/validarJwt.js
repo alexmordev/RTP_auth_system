@@ -7,14 +7,14 @@ const service = new UsuarioService();
 
 const validarJWT = async( req = request, res = response, next ) => {
 
-    let token = req.headers.authorization;
-
-    if ( !token ) {
+    
+    if ( !req.headers.authorization ) {
         return res.status(401).json({
             msg: 'No hay token en la petición'
         });
     }
-
+    
+    let token = req.headers.authorization.split(" ")[1];
     try {
         
         const { credencial } = jwt.verify( token, JWT.secret,{maxAge: JWT.expires} );
