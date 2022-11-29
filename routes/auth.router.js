@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const { validarJWT } = require('../middlewares/validarJwt');
 // const { limiter } = require('../middlewares/tries.handler')
 // const { checkRoles } = require('./../middlewares/auth.handler');
 
@@ -15,15 +16,24 @@ router.post('/login',
     passport.authenticate('local', {session:false} ),
     async (req, res, next) => {
         try {
-        console.log(req.body);
         const {idUsuario} = await userService.findByEmail(req.body.email)
-        const user =  {...req.body, idUsuario};
+        const user =  idUsuario;
         res.status(201).json(service.signToken(user));
         } catch (error) {
         next(error);
         }
   }
 );
+
+router.get('/:token',validarJWT,
+ async (req, res, next) => {
+  // const token = req.header('x-token');
+  try {
+    res.json('Bien');
+  } catch (error) {
+    next(error);
+  }
+});
 /*
 router.post('/recovery',
   async (req, res, next) => {

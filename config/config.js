@@ -19,7 +19,8 @@ const SGA = {
 }
 
 const JWT = {
-    secret : process.env.JWT_SECRET
+    secret : process.env.JWT_SECRET,
+    expires : process.env.AUTH_EXPIRES
 }
 
 module.exports = { AUTH, SGA, JWT };
