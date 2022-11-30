@@ -34,7 +34,7 @@ class PermisoRolService {
 
   async credencialAplicacion(query) {
     const permisoUsuario = await models.Rol.findAll({
-      // order:['idRol'],
+
       include: [
         {
           as: 'RolesUsuarios',
@@ -55,38 +55,21 @@ class PermisoRolService {
     });
 
     const mostrarData = [];
-    // let encontrar  = permisoUsuario.find(element => element.id ===  permisoUsuario.PermisosRoles.dataValues[0]);
-    // console.log({obj: encontrar});
-    // const mostrarData1 = await models.Permiso.findAll()
 
-    // const map = permisoUsuario.map(dat => ({ id: permisoUsuario[0]._previousDataValues.PermisosRoles[0].idPermiso }))
-
-
-    permisoUsuario.forEach(data => {
-      // console.log({idRol: data.idRol});
-      // mostrarData.push({
-      // // idRol: `${data.idRol}`,
-      // })
-      data.PermisosRoles.forEach( dat => {
-        // console.log({PermisoRol:dat.idPermiso});
-        // console.log({IdPermisoRol: dat.PermisoRol.idPermisoRol});
-        mostrarData.push({
-          idRol: `${data.idRol}`,
-          idPermiso:  `${dat.idPermiso}`,
-          IdPermisoRol:      `${dat.PermisoRol.idPermisoRol}`,
-          })
+      permisoUsuario.forEach(data => {
       
+        data.PermisosRoles.forEach( dat => {
+          data.RolesUsuarios.forEach( usuario => {
+              mostrarData.push({
+                idRol:        `${data.idRol}`,
+                idAplicaion:  `${data.idAplicacion}`,
+                idPermiso:    `${dat.idPermiso}`,
+                IdPermisoRol: `${dat.PermisoRol.idPermisoRol}`,
+                IdUsuario:    `${usuario.idUsuario}`,
+              })
+          })
+        })
       })
-
-      // mostrarData.push({
-      //   idRol:        `${data.idRol}`,
-      //   idAplicacion: `${data.idAplicacion}`,
-      //   idUsuario:    `${data.RolesUsuarios[0].idUsuario}`,
-      //   idPermiso:    `${data.PermisosRoles[0].idPermiso}`,
-      //   idPermisoRol: `${data.PermisosRoles[0].PermisoRol.idPermisoRol}`
-      // })
-
-    })
 
     return mostrarData;
   }
