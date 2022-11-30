@@ -1,7 +1,6 @@
 const boom = require('@hapi/boom');
 const fs = require('fs');
 const path = require('path');
-// const sequelizeAUTH = require('../libs/sequelize.auth');
 const {models} = require('../libs/sequelize');
 const {subirArchivo} = require('../middlewares/subirArchivo');
 
