@@ -34,6 +34,7 @@ class PermisoRolService {
 
   async credencialAplicacion(query) {
     const permisoUsuario = await models.Rol.findAll({
+
       include: [
         {
           as: 'RolesUsuarios',
@@ -52,22 +53,27 @@ class PermisoRolService {
         idAplicacion: query.idAplicacion
       }
     });
+
     const mostrarData = [];
 
-    permisoUsuario.forEach(data => {
-      mostrarData.push({
-
-        idRol:        `${data.idRol}`,
-        idAplicacion: `${data.idAplicacion}`,
-        idUsuario:    `${permisoUsuario[0]._previousDataValues.RolesUsuarios[0].idUsuario}`,
-        idPermiso:    `${permisoUsuario[0]._previousDataValues.PermisosRoles[0].idPermiso}`,
-        idPermisoRol: `${permisoUsuario[0]._previousDataValues.PermisosRoles[0].PermisoRol.idPermisoRol}`
+      permisoUsuario.forEach(data => {
+      
+        data.PermisosRoles.forEach( dat => {
+          data.RolesUsuarios.forEach( usuario => {
+              mostrarData.push({
+                idRol:        `${data.idRol}`,
+                idAplicaion:  `${data.idAplicacion}`,
+                idPermiso:    `${dat.idPermiso}`,
+                IdPermisoRol: `${dat.PermisoRol.idPermisoRol}`,
+                IdUsuario:    `${usuario.idUsuario}`,
+              })
+          })
+        })
       })
-    })
 
     return mostrarData;
   }
-
+  
   async findOne(id) {
     const permisoRol = await models.PermisoRol.findByPk(id);// buscar con id
     if (!permisoRol) {
