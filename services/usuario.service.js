@@ -45,10 +45,12 @@ class UsuarioService {
   }
 
   async update(id, changes) {
+    const hash = await bcrypt.hash( changes.contraseña, 13 );
     const usuario = await this.findOne(id);
-    const res = await usuario.update(changes);
+    const res = await usuario.update({...changes, contraseña: hash} );
     return res;
   }
+  
   async delete(id) {
     const usuario = await this.findOne(id);
     await usuario.destroy()
