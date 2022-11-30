@@ -4,6 +4,7 @@ const idAplicacion = Joi.number().integer();
 const nombre = Joi.string();
 const estatus = Joi.number().integer();
 const path = Joi.string();
+const image = Joi.string();
 
 const createAplicacionSchema = Joi.object({
     nombre: nombre.required(),
@@ -12,9 +13,10 @@ const createAplicacionSchema = Joi.object({
 });
 
 const updateAplicacionSchema = Joi.object({
-    nombre,
+    nombre: nombre.required(),
     estatus,
     path,
+    image
 });
 
 const getAplicacionSchema = Joi.object({

@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const routerApi = require( "./routes" );
 const sequelize = require('./libs/sequelize')
+const fileUpload = require('express-fileupload');
 // const sequelizeSGA  = require('./libs/sequelize.sga');
 // const sequelizeAUTH  = require('./libs/sequelize.auth');
 // const setupModels = require('./db/models');
@@ -24,6 +25,12 @@ class Server {
     this.app.use(cors());
     require('./utils');
     this.app.use(express.urlencoded({ extended: false }));
+
+    this.app.use(fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      createParentPath: true
+    }));
 
   }
   routes() {
