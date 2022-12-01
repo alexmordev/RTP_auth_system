@@ -62,6 +62,8 @@ class PermisoRolService {
     
         data.PermisosRoles.forEach( dat => {
           mostrarPermiso.push({
+            idAplicaion:  `${data.idAplicacion}`,
+            idUsuario: data.RolesUsuarios[0].idUsuario,
             idPermiso:    `${dat.idPermiso}`,
             IdPermisoRol: `${dat.PermisoRol.idPermisoRol}`,
             codigo: dat.codigo
@@ -72,7 +74,7 @@ class PermisoRolService {
           // idRol:        `${data.idRol}`,
           idAplicaion:  `${data.idAplicacion}`,
           idUsuario: data.RolesUsuarios[0].idUsuario,
-          roles: mostrarPermiso,
+          // roles: mostrarPermiso,
         });
           // mostrarPermiso = []
       })
