@@ -53,15 +53,19 @@ router.post('/',
   async (req, res, next) => {
 
     try {
-      
       const body = req.body;  
-      const newAplicacion = await service.create(body);
-      
-      if (req.files && newAplicacion) {
-        const nombreImagen = body.nombre.replaceAll(" ", "")
-        const cargaImage = await service.saveImage(req.files, nombreImagen )
+      if (req.files) {
+
+        const nombre =  req.files.imagen.name.split('.');
+        const extension = nombre[ nombre.length -1];
+        const nombreImagen = body.nombre.replaceAll(" ", "") + `.${ extension }`;
+        await service.saveImage(req.files, nombreImagen );
+        body.image = nombreImagen
       }
+      
+      const newAplicacion = await service.create(body);
       res.status(201).json(newAplicacion);
+      res.status(201).json();
 
     } catch (error) {
       next(error);
@@ -87,9 +91,12 @@ router.patch('/:idAplicacion',
         if( fs.existsSync(pathImagen) ){
             fs.unlinkSync(pathImagen);
         }
-        const nombreImagen = body.nombre.replaceAll(" ", "")
-        const cargaImage = await service.saveImage(req.files, nombreImagen )
-        body.image = nombreImagen+'.jpg'
+
+        const nombre =  req.files.imagen.name.split('.');
+        const extension = nombre[ nombre.length -1];
+        const nombreImagen = body.nombre.replaceAll(" ", "") + `.${ extension }`;
+        await service.saveImage(req.files, nombreImagen )
+        body.image = nombreImagen
       }
 
       const aplicacion = await service.update(idAplicacion, body);

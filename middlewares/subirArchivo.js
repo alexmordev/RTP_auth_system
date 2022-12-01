@@ -1,6 +1,7 @@
 const path = require('path');
 
-const subirArchivo = ( file, extensionesValidas = ['png','jpg','jpeg','gif'], carpeta, nombreAplicacion ) =>{
+const subirArchivo = ( file, carpeta, nombreAplicacion ) =>{
+    const extensionesValidas = ['png','jpg','jpeg']
     return new Promise((resolve, reject) => {
         const { imagen } = file;
  
