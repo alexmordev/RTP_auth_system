@@ -8,8 +8,8 @@ const {subirArchivo} = require('../middlewares/subirArchivo');
 class AplicacionService {
   constructor() {}
   async create(data) {
-    const nombreImagen = data.nombre.replaceAll(" ", "")
-    data.image = nombreImagen+'.jpg'
+    // const nombreImagen = data.nombre.replaceAll(" ", "")
+    // data.image = nombreImagen+'.jpg'
     const newAplication = await models.Aplicacion.create( data )
     return newAplication;
   }
@@ -48,7 +48,7 @@ class AplicacionService {
   async saveImage(image, nombreImage){
 
     try {
-      const nombre = await subirArchivo(image,'jpg', 'aplicacion', nombreImage );
+      const nombre = await subirArchivo(image,'aplicacion', nombreImage );
       return nombre;
 
     } catch (error) {
