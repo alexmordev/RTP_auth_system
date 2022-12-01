@@ -57,29 +57,26 @@ class PermisoRolService {
     const mostrarData   = [];
     let mostrarPermiso  = [];
     
-  
       permisoUsuario.forEach(data => {
     
         data.PermisosRoles.forEach( dat => {
           mostrarPermiso.push({
-            idAplicaion:  `${data.idAplicacion}`,
-            idUsuario: data.RolesUsuarios[0].idUsuario,
             idPermiso:    `${dat.idPermiso}`,
             IdPermisoRol: `${dat.PermisoRol.idPermisoRol}`,
             codigo: dat.codigo
           })
         })
 
-        // mostrarData.push({
-        //   // idRol:        `${data.idRol}`,
-        //   idAplicaion:  `${data.idAplicacion}`,
-        //   idUsuario: data.RolesUsuarios[0].idUsuario,
-        //   permisos: mostrarPermiso,
-        // });
-          // mostrarPermiso = []
+        mostrarData.push({
+          idAplicaion:  `${data.idAplicacion}`,
+          idUsuario: data.RolesUsuarios[0].idUsuario,
+          idAplicaion:  `${data.idAplicacion}`,
+          idUsuario: data.RolesUsuarios[0].idUsuario,
+          permisos: mostrarPermiso,
+        });
       })
 
-    return mostrarPermiso;
+    return mostrarData;
   }
   
   async findOne(id) {
