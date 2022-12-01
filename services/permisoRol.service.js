@@ -69,12 +69,12 @@ class PermisoRolService {
         })
 
         mostrarData.push({
-          idRol:        `${data.idRol}`,
+          // idRol:        `${data.idRol}`,
           idAplicaion:  `${data.idAplicacion}`,
           idUsuario: data.RolesUsuarios[0].idUsuario,
           roles: mostrarPermiso,
         });
-          mostrarPermiso = []
+          // mostrarPermiso = []
       })
 
     return mostrarData;
