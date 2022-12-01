@@ -1,18 +1,16 @@
 const boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
-// const sequelizeAUTH = require('../libs/sequelize.auth');
-// const sequelizeSGA = require('../libs/sequelize.sga');
-const {models} = require('../libs/sequelize');
+const { models } = require('../libs/sequelize');
 
 
 class UsuarioService {
-  constructor() {}
+  constructor() { }
 
   async create(data) {
-    const hash = await bcrypt.hash( data.contraseña, 13 );
+    const hash = await bcrypt.hash(data.contraseña, 13);
     const newUsuario = await models.Usuario.create({
-        ...data,
-        contraseña: hash
+      ...data,
+      contraseña: hash
     })
     delete newUsuario.dataValues.contraseña
     return newUsuario;
@@ -22,39 +20,43 @@ class UsuarioService {
     return res;
   }
   async findTrabajadores() {
-    // console.log(models);
     const res = await models.Trabajador.findAll();
     return res;
   }
   async findOne(id) {
-    const usuario  =  await models.Usuario.findByPk(id,{
-        include:[{association: 'RolesUsuarios',include: ['aplicacion','PermisosRoles']}]
+    const usuario = await models.Usuario.findByPk(id, {
+      include: [{ association: 'RolesUsuarios', include: ['aplicacion', 'PermisosRoles'] }]
     });// buscar con id
-    if(!usuario){
+    delete usuario.dataValues.contraseña
+    delete usuario.dataValues.createdAt
+    delete usuario.dataValues.updatedAt
+    delete usuario.dataValues.token
+
+    if (!usuario) {
       boom.notFound('Registro no encontrado');
     }
     return usuario;
   }
   async findByEmail(email) {
     const rta = await models.Usuario.findOne({
-     where:{
-      email
-     }
+      where: {
+        email
+      }
     });
     return rta;
   }
 
   async update(id, changes) {
-    const hash = await bcrypt.hash( changes.contraseña, 13 );
+    const hash = await bcrypt.hash(changes.contraseña, 13);
     const usuario = await this.findOne(id);
-    const res = await usuario.update({...changes, contraseña: hash} );
+    const res = await usuario.update({ ...changes, contraseña: hash });
     return res;
   }
-  
+
   async delete(id) {
     const usuario = await this.findOne(id);
     await usuario.destroy()
-    return {id};
+    return { id };
   }
 }
 
