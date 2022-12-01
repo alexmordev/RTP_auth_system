@@ -54,21 +54,27 @@ class PermisoRolService {
       }
     });
 
-    const mostrarData = [];
-
+    const mostrarData   = [];
+    let mostrarPermiso  = [];
+    
+  
       permisoUsuario.forEach(data => {
-      
+    
         data.PermisosRoles.forEach( dat => {
-          data.RolesUsuarios.forEach( usuario => {
-              mostrarData.push({
-                idRol:        `${data.idRol}`,
-                idAplicaion:  `${data.idAplicacion}`,
-                idPermiso:    `${dat.idPermiso}`,
-                IdPermisoRol: `${dat.PermisoRol.idPermisoRol}`,
-                IdUsuario:    `${usuario.idUsuario}`,
-              })
+          mostrarPermiso.push({
+            idPermiso:    `${dat.idPermiso}`,
+            IdPermisoRol: `${dat.PermisoRol.idPermisoRol}`,
+            codigo: dat.codigo
           })
         })
+
+        mostrarData.push({
+          idRol:        `${data.idRol}`,
+          idAplicaion:  `${data.idAplicacion}`,
+          idUsuario: data.RolesUsuarios[0].idUsuario,
+          roles: mostrarPermiso,
+        });
+          mostrarPermiso = []
       })
 
     return mostrarData;
