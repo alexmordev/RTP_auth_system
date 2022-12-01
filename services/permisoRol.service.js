@@ -70,16 +70,16 @@ class PermisoRolService {
           })
         })
 
-        mostrarData.push({
-          // idRol:        `${data.idRol}`,
-          idAplicaion:  `${data.idAplicacion}`,
-          idUsuario: data.RolesUsuarios[0].idUsuario,
-          // roles: mostrarPermiso,
-        });
+        // mostrarData.push({
+        //   // idRol:        `${data.idRol}`,
+        //   idAplicaion:  `${data.idAplicacion}`,
+        //   idUsuario: data.RolesUsuarios[0].idUsuario,
+        //   permisos: mostrarPermiso,
+        // });
           // mostrarPermiso = []
       })
 
-    return mostrarData;
+    return mostrarPermiso;
   }
   
   async findOne(id) {
