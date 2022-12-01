@@ -18,7 +18,7 @@ const subirArchivo = (file, carpeta, nombreAplicacion) => {
             if (err) {
                 reject(err);
             }
-            resolve(nombreTemp);
+            resolve(nombreAplicacion);
         });
     });
 }
