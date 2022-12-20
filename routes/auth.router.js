@@ -1,9 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 const { validarJWT } = require('../middlewares/validarJwt');
-// const { limiter } = require('../middlewares/tries.handler')
-// const { checkRoles } = require('./../middlewares/auth.handler');
-
 const AuthService = require('../services/auth.service');
 const UsuarioService = require('../services/usuario.service');
 
@@ -34,7 +31,7 @@ router.post('/login',
   }
 );
 
-/*
+
 router.post('/recovery',
   async (req, res, next) => {
     try {
@@ -47,18 +44,17 @@ router.post('/recovery',
   }
 );
 
-router.post('/change-password',
-checkRoles('changePassword'),
+router.post('/change-password',validarJWT,
   async (req, res, next) => {
     try {
-      const { token, newPassword } =  req.body
-      const rta = await service.changePassword(newPassword, token);
+      const { user,newPassword } =  req.body;
+      const rta = await service.changePassword(user,newPassword);
       res.json(rta)
     } catch (error) {
       next(error);
     }
   }
 );
-*/
+
 
 module.exports = router;
