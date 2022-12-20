@@ -1,9 +1,8 @@
-// const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer");
 const boom = require( '@hapi/boom' )
 const bcrypt = require('bcrypt')
 const jwt = require( 'jsonwebtoken' );
 const { JWT }= require('../config/config');
-const { validarJWT } = require('../middlewares/validarJwt');
 const UsuarioService = require('./usuario.service');
 const service = new UsuarioService();
 
@@ -35,34 +34,20 @@ class AuthService {
       })
     }
 
-   validarToken(token){
-    try {
-      const valida = validarJWT(token); 
-      console.log(token)
-      return valida
-      
-    } catch (error) {
-      return error
-    }
-
-
-  
-  }
-
   async sendRecovery(email){
     const user =  await service.findByEmail( email );
     if(!user){
       throw boom.unauthorized();
     }
-    const payload = {sub: user.id, role: user.role};
-    const token =  jwt.sign(payload, config.jwtSecret, {expiresIn: '10min'});
-    const link = `http://front.com?token=${token}`;
+    const payload = {sub: user.id_usuario};
+    const token =  jwt.sign(payload, JWT.secret, {expiresIn: '10min'});
+    const link = `${ process.env.MAIL_URL_RECOVERY }?token=${token}`;
     const mail = {
-      from: 'alejandromorjim@gmail.com', // sender address
-      to: `${user.email}`, // list of receivers
+      from: process.env.MAIL_USERNAME, // sender address
+      to: user.email, // list of receivers
       subject: 'Servicio de Recuperación de Contraseña', // Subject line
       html:
-      `<h1>Cambiar Contraseña</h1>
+      `<h1>Cambio Contraseña</h1>
         <p>
           <br>Por favor ingresa al siguiente link para recuperar tu contraseña:
           <b><a href=${link}>RECUPERAR CONTRASEÑA<a></b>
@@ -70,16 +55,16 @@ class AuthService {
         </p>`,
     }
     return this.sendMail(mail);
-
   }
+
   async sendMail(infoMail){
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
+      host: process.env.MAIL_HOST,
+      port: process.env.PORT,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: 'alejandromorjim@gmail.com', // generated ethereal user
-        pass: `${config.smptGmail}`, // generated ethereal password
+        user: process.env.MAIL_USERNAME, // generated ethereal user
+        pass: process.env.MAIL_PASSWORD, // generated ethereal password
       },
     });
 
@@ -87,22 +72,19 @@ class AuthService {
     return { message: 'mail sent'};
   }
 
-  async changePassword(newPassword, token){
+  async changePassword(user, newPassword){
     try{
-      const payload = jwt.verify(token, config.jwtSecret)
-      const user =  await service.findOne(payload.sub);
-      if(!user){
+      const userAut =  await service.findOne(user);
+      if(!userAut){
         throw boom.unauthorized();
       }
-      const hash =  await bcrypt.hash( newPassword, 10 );
-      await service.update( user.id ,{password: hash} )
+      const res = await service.update( user,{contraseña: newPassword} )
       return {message: 'password changed'}
 
     }catch(error){
       throw boom.unauthorized();
     }
   }
-
 }
 
 module.exports = AuthService
