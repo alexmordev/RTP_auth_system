@@ -8,8 +8,6 @@ const {subirArchivo} = require('../middlewares/subirArchivo');
 class AplicacionService {
   constructor() {}
   async create(data) {
-    // const nombreImagen = data.nombre.replaceAll(" ", "")
-    // data.image = nombreImagen+'.jpg'
     const newAplication = await models.Aplicacion.create( data )
     return newAplication;
   }
