@@ -39,7 +39,7 @@ class AuthService {
     if(!user){
       throw boom.unauthorized();
     }
-    const payload = {Credencial: user.id_usuario};
+    const payload = {credencial: user.id_usuario};
     const token =  jwt.sign(payload, JWT.secret, {expiresIn: '10min'});
     const link = `${ process.env.MAIL_URL_RECOVERY }?token=${token}`;
     const mail = {
